@@ -35,7 +35,7 @@ gem 'solid_cable'
 # ============================================================
 # AUTH
 # ============================================================
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 gem 'devise-jwt', '~> 0.13'
 
 # ============================================================
@@ -66,8 +66,8 @@ gem 'rack-attack', '~> 6.7'
 # ============================================================
 # MONITORING
 # ============================================================
-gem 'sentry-ruby', '~> 5.11'
-gem 'sentry-sidekiq', '~> 5.11'
+gem 'sentry-ruby', '~> 7.2'
+gem 'sentry-sidekiq', '~> 7.2'
 
 # ============================================================
 # UTILITIES
@@ -97,7 +97,7 @@ gem 'thruster', require: false
 # ============================================================
 # IMAGES
 # ============================================================
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 2.2'
 
 # ============================================================
 # DEVELOPMENT / TEST
@@ -110,7 +110,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 3.2'
-  gem 'simplecov', '~> 0.21', require: false
+  gem 'simplecov', '~> 1.3', require: false
   gem 'simplecov-json', '~> 0.2.3', require: false
 end
 

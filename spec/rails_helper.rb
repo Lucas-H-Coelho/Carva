@@ -2,9 +2,9 @@
 
 require 'simplecov'
 SimpleCov.start 'rails' do
-  add_filter '/spec/'
-  add_filter '/vendor/'
-  add_filter '/app/engines/'
+  skip '/spec/'
+  skip '/vendor/'
+  skip '/app/engines/'
 end
 
 # Patch ActionView ERB handler for Ruby 3.4 compatibility

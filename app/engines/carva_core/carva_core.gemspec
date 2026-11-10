@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_path = 'lib'
 
   spec.add_dependency 'rails', '~> 8.1'
-  spec.add_dependency 'devise', '~> 4.9'
+  spec.add_dependency 'devise', '~> 5.0'
   spec.add_dependency 'devise-jwt', '~> 0.13'
   spec.add_dependency 'pundit', '~> 2.3'
   spec.add_dependency 'dry-validation', '~> 1.9'
