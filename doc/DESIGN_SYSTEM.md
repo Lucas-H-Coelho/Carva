@@ -47,7 +47,7 @@
 | `--color-secondary-100` | `#D1FAE5` | `209, 250, 229` | Backgrounds de sucesso |
 | `--color-secondary-50` | `#ECFDF5` | `236, 253, 245` | Backgrounds suaves de confirmação |
 
-**Justificativa:** O verde-teal (`#10B981`) remete a limpeza, frescor e sustentabilidade — alinhado com a identidade de lava-carre. Complementa o azul sem competir.
+**Justificativa:** O verde-teal (`#10B981`) remete a limpeza, frescor e sustentabilidade — alinhado com a identidade de lava-carro. Complementa o azul sem competir.
 
 ### 2.3 Cores Neutras (Escala Cinza)
 

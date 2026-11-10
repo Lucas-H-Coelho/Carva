@@ -84,7 +84,7 @@ themes/
 name: Carva Default
 version: 1.0.0
 author: Carva
-description: Tema padrão para lava-carres profissionais
+description: Tema padrão para lava-carros profissionais
 
 settings:
   - id: primary_color
@@ -132,7 +132,7 @@ settings:
   - id: hero_title
     type: text
     label: Título do hero
-    default: 'Seu lava-carre online'
+    default: 'Seu lava-carro online'
     group: Hero
 
   - id: hero_subtitle

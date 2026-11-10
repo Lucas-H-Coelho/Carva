@@ -9,14 +9,14 @@
 | Campo | Valor |
 |-------|-------|
 | **Nome** | Carva |
-| **Tipo** | SaaS multi-tenant — plataforma de gestão para lava-carres |
+| **Tipo** | SaaS multi-tenant — plataforma de gestão para lava-carros |
 | **Stack** | Ruby on Rails (backend modular), React (dashboard + storefronts), Liquid (engine de temas), PostgreSQL, Redis, Sidekiq |
-| **Público** | Donos de lava-carre (não técnicos), clientes finais, desenvolvedores internos |
+| **Público** | Donos de lava-carro (não técnicos), clientes finais, desenvolvedores internos |
 | **Diferencial** | Engine de temas 100% interna, modular, sem dependência de temas externos — Liquid + React hydration |
 
 ### 1.1 Propósito
 
-Permitir que donos de lava-carres configurem uma presença digital completa (loja virtual, agendamento online, pagamentos, estoque, fidelidade, marketing) sem escrever uma linha de código, enquanto oferecem aos clientes finais uma experiência fluida e profissional.
+Permitir que donos de lava-carro configurem uma presença digital completa (loja virtual, agendamento online, pagamentos, estoque, fidelidade, marketing) sem escrever uma linha de código, enquanto oferecem aos clientes finais uma experiência fluida e profissional.
 
 ### 1.2 Princípios de Design
 
@@ -476,7 +476,7 @@ Antes de qualquer PR, o agente deve verificar:
 
 | Termo | Definição |
 |-------|-----------|
-| **Tenant** | Lojista (donos de lava-carre) |
+| **Tenant** | Lojista (donos de lava-carro) |
 | **Storefront** | Loja virtual pública do tenant |
 | **Theme** | Conjunto de templates Liquid + assets |
 | **Block** | Componente arrastável dentro de um tema |

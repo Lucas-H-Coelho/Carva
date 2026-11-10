@@ -11,7 +11,7 @@ tags: [feature, carva_inventory, blocking]
 
 ## Objetivo
 
-Implementar os modelos de domínio principal: `Service` (serviços de lava-carre), `Product` (produtos à venda), e `Booking` (agendamentos). São as entidades centrais do negócio.
+Implementar os modelos de domínio principal: `Service` (serviços de lava-carro), `Product` (produtos à venda), e `Booking` (agendamentos). São as entidades centrais do negócio.
 
 ---
 

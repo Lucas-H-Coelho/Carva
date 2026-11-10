@@ -282,7 +282,7 @@ end
 name: Carva Default
 version: 1.0.0
 author: Carva
-description: Tema padrão para lava-carres
+description: Tema padrão para lava-carros
 
 settings:
   - id: primary_color
