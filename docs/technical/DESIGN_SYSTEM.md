@@ -414,7 +414,7 @@ function CarvaButton({ children, variant = 'primary' }) {
 
 ## 1.7 Gestão de Tarefas
 
-Todas as mudanças no design system são rastreadas via sistema Kanban em `Kanban/`. Cada componente novo, alteração de token ou atualização de paleta deve ter um card em `TODO/` antes de começar.
+Todas as mudanças no design system são rastreadas via kanban do Hermes. Cada componente novo, alteração de token ou atualização de paleta deve ter um card em `TODO/` antes de começar.
 
 ---
 

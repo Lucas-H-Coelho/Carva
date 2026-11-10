@@ -53,7 +53,7 @@ ask → classify → define done → evidence → decide → act → verify → 
 
 ### Princípios de desenvolvimento com IA
 
-1. **Kanban como fonte da verdade** — cada tarefa é um card em `Kanban/`, com frontmatter YAML, dependências e tags. O agente só trabalha em cards que existem.
+1. **Kanban como fonte da verdade** — cada tarefa é um card no kanban do Hermes. O agente só trabalha em cards que existem.
 2. **Anti-hallucination guards** — 5 regras duras (Recall Gate, Intent Gate, Verification Theater, Twin Check, Hard Bound) que impedem o agente de inventar arquivos, entrar em loop ou dizer "deve funcionar".
 3. **Leader + Subagents** — o agente líder classifica, decide e verifica; subagents especializados implementam sob escopo estrito.
 4. **Verification by observation** — "deve funcionar" não é verificação. O agente roda comandos reais e confere o output.
@@ -177,7 +177,6 @@ Carva/
 ├── docs/                     # Requisitos, stakeholders, arquitetura
 │   ├── product/              # User stories, business models
 │   └── technical/            # Arquitetura, decisões técnicas
-├── Kanban/                   # Gestão de tarefas (source of truth)
 ├── lib/                      # Core library (multi_tenancy, current)
 ├── spec/                     # RSpec (controllers, models, engines)
 ├── skills/                   # Skills locais (Fable, design, code review)
@@ -248,8 +247,8 @@ Este projeto opera com agentes de IA como co-piloto de engenharia. Para interagi
 
 ### Como agente de IA
 
-1. **Sempre leia `Kanban/README.md`** antes de qualquer ação
-2. **Verifique `Kanban/TODO/`** — nunca comece sem um card
+1. **Sempre verifique o kanban do Hermes** antes de qualquer ação
+2. **Verifique a coluna TODO** — nunca comece sem um card
 3. **Siga o Fable Method** — `FABLE.md` tem o protocolo completo
 4. **Respeite os guards** — 5 anti-hallucination rules são obrigatórias
 
@@ -266,7 +265,7 @@ Este projeto opera com agentes de IA como co-piloto de engenharia. Para interagi
 | `docs/stakeholders/S2-*.md` | Necessidades do cliente final |
 | `docs/stakeholders/S3-*.md` | Necessidades do funcionário |
 | `docs/stakeholders/S4-*.md` | Necessidades do gerente multi-tenant |
-| `Kanban/README.md` | Status atual das tarefas, regras de uso |
+| Hermes Kanban | Status atual das tarefas, regras de uso |
 
 ---
 

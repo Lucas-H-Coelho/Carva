@@ -8,7 +8,7 @@ description: A step-by-step problem-solving loop (classify the ask, define done,
 > **Contexto do projeto:** Carva é um SaaS multi-tenant Rails 8.1.4.1 API mode com 8 engines locais. PostgreSQL + Redis + Docker.
 > **Stack:** Ruby 3.4.7, Rails 8.1.4.1, RSpec 6, FactoryBot, SimpleCov, Devise + devise-jwt, Pundit, Solid Queue, Liquid.
 > **Comandos:** `bin/rails`, `bundle exec rspec`, `docker compose up -d`, `curl http://localhost:3000/healthcheck`
-> **Kanban:** `Kanban/TODO/`, `Kanban/IN_PROGRESS/`, `Kanban/DONE/` — mover cards conforme progresso.
+> **Kanban:** `todo`, `running`, `done` — mover cards conforme progresso no kanban do Hermes.
 
 ## Regras Específicas do Carva
 

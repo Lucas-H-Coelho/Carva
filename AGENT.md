@@ -78,7 +78,7 @@ Permitir que donos de lava-carro configurem uma presença digital completa (loja
 
 ```
 Carva/
-├── Kanban/                         # Task management (kanban)
+├── docs/                           # Documentação do projeto
 ├── app/
 │   ├── controllers/                # API controllers (v1)
 │   │   ├── api/v1/                 # Namespace API
@@ -148,17 +148,14 @@ O projeto usa um sistema Kanban em arquivos Markdown para rastrear progresso:
 
 | Pasta | Significado |
 |-------|-------------|
-| `Kanban/BACKLOG/` | Tarefas futuras, não priorizadas ainda |
-| `Kanban/TODO/` | Prontas para começar, priorizadas |
-| `Kanban/IN_PROGRESS/` | Em desenvolvimento (máx. 1 por vez) |
-| `Kanban/DONE/` | Concluídas e validadas |
+| Hermes Kanban | Tarefas no kanban do Hermes |
 
 ### Regras Obrigatórias de Uso do Kanban
 
 **O agente DEVE seguir estas regras em TODA interação:**
 
-1. **LEITURA OBRIGATÓRIA:** Antes de qualquer ação, ler `Kanban/README.md` e `Kanban/TODO/README.md`
-2. **BACKLOG PRIMEIRO:** Verificar `Kanban/BACKLOG/` — se há itens P0 não resolvidos, NÃO prosseguir com implementação
+1. **LEITURA OBRIGATÓRIA:** Antes de qualquer ação, verificar o kanban do Hermes
+2. **BACKLOG PRIMEIRO:** Verificar a coluna backlog — se há itens P0 não resolvidos, NÃO prosseguir com implementação
 3. **UM CARD POR VEZ:** Nunca trabalhar em mais de 1 card em `IN_PROGRESS` simultaneamente
 4. **DEPENDÊNCIAS:** Respeitar `depends` no frontmatter — nunca começar um card cujos dependentes não estão em `DONE`
 5. **MOVIMENTO:** Mover card para `IN_PROGRESS/` ANTES de começar, para `DONE/` quando concluído
@@ -176,6 +173,8 @@ BACKLOG → TODO → IN_PROGRESS → DONE
            começar  código     completo
 ```
 
+Tarefas gerenciadas no kanban do Hermes.
+
 ### Formato do Card (YAML frontmatter obrigatório)
 
 ```yaml
@@ -192,17 +191,7 @@ tags: [feature, carva_core, blocking]
 ### Convenção de Nomes
 
 ```
-Kanban/
-├── BACKLOG/
-│   ├── T-008-setup-repo.md
-│   └── T-009-branch-strategy.md
-├── TODO/
-│   ├── T-010-rails-scaffold.md
-│   └── T-011-docker-compose.md
-├── IN_PROGRESS/
-│   └── T-012-github-actions.md
-└── DONE/
-    └── T-013-rspec-setup.md
+Tarefas gerenciadas no kanban do Hermes — colunas: triage, todo, running, done
 ```
 
 ### Tags do Kanban
@@ -250,8 +239,8 @@ O projeto usa tags para classificar cards por tipo, domínio e status. **Todo ca
 
 ### Como o agente opera:
 
-1. **Sempre leia `Kanban/README.md`** antes de começar qualquer trabalho
-2. **Verifique `Kanban/TODO/README.md`** para ver o que está pronto
+1. **Sempre verificar o kanban do Hermes** antes de começar qualquer trabalho
+2. **Verifique a coluna TODO** para ver o que está pronto
 3. **Mova um card para `IN_PROGRESS/`** antes de começar
 4. **Mova para `DONE/`** quando concluído
 5. **Nunca comece sem um card em `TODO/`** — se não houver, crie um primeiro

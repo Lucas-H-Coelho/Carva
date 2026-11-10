@@ -44,16 +44,16 @@ Carva é uma plataforma SaaS multi-tenant construída sobre **Ruby on Rails** co
 
 ## 1.1 Kanban — Gestão de Tarefas
 
-O projeto usa um sistema Kanban em arquivos Markdown (`Kanban/`) para rastrear progresso. Cada card tem YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`.
+O projeto usa o kanban do Hermes para rastrear progresso.
 
 | Coluna | Significado |
 |--------|-------------|
-| 📋 **BACKLOG** | Tarefas futuras, não priorizadas |
-| 📥 **TODO** | Prontas para começar, priorizadas |
-| 🔨 **IN_PROGRESS** | Em desenvolvimento (máx. 1 por vez) |
-| ✅ **DONE** | Concluídas e validadas |
+| 📋 **triage** | Tarefas em revisão |
+| 📥 **todo** | Prontas para começar, priorizadas |
+| 🔨 **running** | Em desenvolvimento (máx. 1 por vez) |
+| ✅ **done** | Concluídas e validadas |
 
-**Regra:** nunca comece um card sem ele estar em `TODO/`. Mova para `IN_PROGRESS/` antes de começar, `DONE/` ao concluir.
+**Regra:** nunca comece um card sem ele estar em `todo`. Mova para `running` antes de começar, `done` ao concluir.
 
 ---
 

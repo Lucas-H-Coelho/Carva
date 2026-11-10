@@ -23,18 +23,16 @@
 
 ## 1.1 Kanban — Rastreamento de Progresso
 
-O progresso é rastreado via sistema Kanban em `Kanban/`:
+O progresso é rastreado via kanban do Hermes:
 
 | Coluna | Significado |
 |--------|-------------|
-| 📋 **BACKLOG** | Tarefas futuras, não priorizadas |
-| 📥 **TODO** | Prontas para começar, priorizadas |
-| 🔨 **IN_PROGRESS** | Em desenvolvimento (máx. 1 por vez) |
-| ✅ **DONE** | Concluídas e validadas |
+| 📋 **triage** | Tarefas em revisão |
+| 📥 **todo** | Prontas para começar, priorizadas |
+| 🔨 **running** | Em desenvolvimento (máx. 1 por vez) |
+| ✅ **done** | Concluídas e validadas |
 
-Cada card tem YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`.
-
-**Regra:** nunca comece um card sem ele estar em `TODO/`. Mova para `IN_PROGRESS/` antes de começar, `DONE/` ao concluir.
+**Regra:** nunca comece um card sem ele estar em `todo`. Mova para `running` antes de começar, `done` ao concluir.
 
 ---
 

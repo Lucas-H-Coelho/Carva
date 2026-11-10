@@ -49,7 +49,4 @@ Documentos de stakeholders, requisitos e modelos de negócio.
 
 | Documento | O que cobre |
 |-----------|-------------|
-| [../Kanban/README.md](../Kanban/README.md) | Status das tarefas, regras de uso |
-| [../Kanban/TODO/README.md](../Kanban/TODO/README.md) | Tarefas prontas pra começar |
-| [../Kanban/IN_PROGRESS/](../Kanban/IN_PROGRESS/) | Tarefas em desenvolvimento |
-| [../Kanban/DONE/](../Kanban/DONE/) | Tarefas concluídas |
+| Hermes Kanban | Status das tarefas, regras de uso |
