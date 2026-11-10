@@ -8,7 +8,7 @@
 
 | Coluna | Cards |
 |--------|-------|
-| 📋 **BACKLOG** | 47 |
+| 📋 **BACKLOG** | 2 |
 | 📥 **TODO** | 7 |
 | 🔨 **IN_PROGRESS** | 0 |
 | ✅ **DONE** | 0 |
@@ -50,40 +50,55 @@ Kanban/
 ├── IN_PROGRESS/
 │   └── T-012-github-actions.md
 └── DONE/
-    └── T-001-readme.md
+    └── T-013-rspec-setup.md
 ```
 
 ---
 
-## Prioridades
+## Cards Atuais
 
-| Prioridade | Significado | Exemplo |
-|-----------|-------------|---------|
-| **P0** | Bloqueante — fazer antes de tudo | Setup, auth, multi-tenancy |
-| **P1** | Alto impacto — próximo passo natural | Theme engine, storefront |
-| **P2** | Importante — depois do P1 | Marketing, loyalty, analytics |
+### TODO
 
----
+| ID | Título | Prioridade |
+|----|--------|------------|
+| T-001 | Rails 7+ scaffold com engines | P0 |
+| T-002 | PostgreSQL + Redis Docker Compose | P0 |
+| T-003 | GitHub Actions CI/CD pipeline | P0 |
+| T-004 | RSpec + Brakeman + Bundler Audit | P1 |
+| T-005 | ESLint + Prettier + Vite config | P1 |
+| T-006 | .env.example + variáveis de ambiente | P1 |
+| T-007 | Gemfile + dependências base | P0 |
 
-## Dependências Cruzadas
+### BACKLOG
 
-```
-Fase 0 ──→ Fase 1 ──→ Fase 2 ──→ Fase 4 ──→ Fase 5 ──→ Fase 6 ──→ Fase 7
-                            │        │
-                            └──→ Fase 3 ──┘
-```
-
-| Fase | Depende de | Pode paralelizar |
-|------|-----------|-----------------|
-| 0 | Nenhuma | Nenhuma |
-| 1 | Fase 0 | Fase 3 (models) |
-| 2 | Fase 1 | Fase 4 (models) |
-| 3 | Fase 1 | Fase 2 |
-| 4 | Fase 1, 2 | Fase 5 (models) |
-| 5 | Fase 4 | Fase 6 (models) |
-| 6 | Todas | Nenhuma |
-| 7 | Todas | Nenhuma |
+| ID | Título | Prioridade |
+|----|--------|------------|
+| B-001 | Decisões de arquitetura pendentes | P0 |
+| B-002 | Regras e alinhamentos pendentes | P1 |
 
 ---
 
-*Atualize os arquivos desta pasta conforme o progresso avança.*
+## Regras do Agente
+
+1. **Sempre leia `Kanban/README.md`** antes de começar qualquer trabalho
+2. **Verifique `Kanban/TODO/README.md`** para ver o que está pronto
+3. **Mova um card para `IN_PROGRESS/`** antes de começar
+4. **Mova para `DONE/`** quando concluído
+5. **Nunca comece sem um card em `TODO/`** — se não houver, crie um primeiro
+
+Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`.
+
+---
+
+## Regras de Uso Obrigatório
+
+- **BACKLOG PRIMEIRO:** Verificar `Kanban/BACKLOG/` — se há itens P0 não resolvidos, NÃO prosseguir com implementação
+- **UM CARD POR VEZ:** Nunca trabalhar em mais de 1 card em `IN_PROGRESS` simultaneamente
+- **DEPENDÊNCIAS:** Respeitar `depends` no frontmatter — nunca começar um card cujos dependentes não estão em `DONE`
+- **DETALHE MÍNIMO:** Cada card em `TODO/` deve ter: objetivo, decisões, passo a passo, checklist, riscos
+- **VALIDAÇÃO:** Só mover para `DONE/` quando TODOS os itens do checklist estiverem marcados
+- **BACKLOG ATIVO:** Se durante o trabalho surgir algo não definido, criar card em `BACKLOG/` antes de prosseguir
+
+---
+
+*Documento vivo — atualize conforme o projeto evolui.*

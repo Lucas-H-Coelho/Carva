@@ -129,6 +129,57 @@ O projeto usa um sistema Kanban em arquivos Markdown para rastrear progresso:
 | `Kanban/IN_PROGRESS/` | Em desenvolvimento (máx. 1 por vez) |
 | `Kanban/DONE/` | Concluídas e validadas |
 
+### Regras Obrigatórias de Uso do Kanban
+
+**O agente DEVE seguir estas regras em TODA interação:**
+
+1. **LEITURA OBRIGATÓRIA:** Antes de qualquer ação, ler `Kanban/README.md` e `Kanban/TODO/README.md`
+2. **BACKLOG PRIMEIRO:** Verificar `Kanban/BACKLOG/` — se há itens P0 não resolvidos, NÃO prosseguir com implementação
+3. **UM CARD POR VEZ:** Nunca trabalhar em mais de 1 card em `IN_PROGRESS` simultaneamente
+4. **DEPENDÊNCIAS:** Respeitar `depends` no frontmatter — nunca começar um card cujos dependentes não estão em `DONE`
+5. **MOVIMENTO:** Mover card para `IN_PROGRESS/` ANTES de começar, para `DONE/` quando concluído
+6. **DETALHE MÍNIMO:** Cada card em `TODO/` deve ter: objetivo, decisões, passo a passo, checklist, riscos
+7. **VALIDAÇÃO:** Só mover para `DONE/` quando TODOS os itens do checklist estiverem marcados
+8. **BACKLOG ATIVO:** Se durante o trabalho surgir algo não definido, criar card em `BACKLOG/` antes de prosseguir
+
+### Fluxo de Trabalho
+
+```
+BACKLOG → TODO → IN_PROGRESS → DONE
+    ↓        ↓         ↓          ↓
+  Decisão  Pronto    Execução   Validado
+  humana   para      do        checklist
+           começar  código     completo
+```
+
+### Formato do Card (YAML frontmatter obrigatório)
+
+```yaml
+---
+id: T-NNN
+phase: Fase X
+priority: P0 | P1 | P2
+status: backlog | todo | in_progress | done
+depends: T-NNN, T-NNN
+---
+```
+
+### Convenção de Nomes
+
+```
+Kanban/
+├── BACKLOG/
+│   ├── T-008-setup-repo.md
+│   └── T-009-branch-strategy.md
+├── TODO/
+│   ├── T-010-rails-scaffold.md
+│   └── T-011-docker-compose.md
+├── IN_PROGRESS/
+│   └── T-012-github-actions.md
+└── DONE/
+    └── T-013-rspec-setup.md
+```
+
 **Como o agente opera:**
 
 1. **Sempre leia `Kanban/README.md`** antes de começar qualquer trabalho
