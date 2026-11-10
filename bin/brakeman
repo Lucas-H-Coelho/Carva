@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+set -e
+bundle exec brakeman -q -z -w 2,3,4,5 --no-pager

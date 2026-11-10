@@ -4,6 +4,7 @@ phase: Fase 0
 priority: P1
 status: todo
 depends: none
+tags: [chore, carva_dashboard]
 ---
 
 # T-005 — ESLint + Prettier + Vite config

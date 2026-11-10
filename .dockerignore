@@ -1,0 +1,51 @@
+# ============================================================
+# Carva — .dockerignore
+# ============================================================
+# Arquivos e pastas ignorados pelo Docker build/context
+# ============================================================
+
+# Version control
+.git
+.github
+.gitignore
+
+# IDE / editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Rails
+log/
+tmp/
+storage/
+public/assets/
+public/packs/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Docs / docs
+*.md
+Kanban/
+doc/
+
+# Node (frontend separado)
+node_modules/
+vendor/assets/javascripts/
+
+# Test coverage
+coverage/
+*.lcov
+
+# Env files (não subir sensitive data)
+.env
+.env.local
+.env.*.local

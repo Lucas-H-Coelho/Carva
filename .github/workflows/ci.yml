@@ -1,0 +1,120 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  RUBY_VERSION: 3.4.7
+  POSTGRES_VERSION: 16
+  REDIS_VERSION: 7
+  RAILS_MAX_THREADS: 5
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Run RuboCop
+        run: bundle exec rubocop --parallel --force-default-styles || true
+
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:${{ env.POSTGRES_VERSION }}
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      redis:
+        image: redis:${{ env.REDIS_VERSION }}-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --appendonly yes
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Create database
+        run: bundle exec rails db:create RAILS_ENV=test
+        env:
+          DATABASE_HOST: localhost
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+
+      - name: Run tests
+        run: |
+          bundle exec rspec --format progress --format junit --out rspec.xml --color
+        env:
+          DATABASE_HOST: localhost
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          REDIS_URL: redis://localhost:6379/0
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: rspec.xml
+
+  security:
+    name: Security
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Run Brakeman
+        run: bundle exec brakeman -q -z -w 2,3,4,5 --no-pager || true
+
+      - name: Run bundler-audit
+        run: |
+          bundle exec bundler audit update
+          bundle exec bundler audit || true

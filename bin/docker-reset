@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+echo "🐳 Resetting Carva Docker environment..."
+docker compose down -v
+docker compose up -d
+sleep 5
+echo "✅ Reset complete!"

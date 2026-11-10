@@ -8,7 +8,7 @@
 
 | Fase | Cards | Prioridade |
 |------|-------|-----------|
-| Fase 0 | 7 | P0 |
+| Fase 0 | 1 | P1 |
 
 ---
 
@@ -16,13 +16,10 @@
 
 | ID | Card | Fase | Prioridade |
 |----|------|------|-----------|
-| T-001 | Rails 7+ scaffold com engines | 0 | P0 |
-| T-002 | PostgreSQL + Redis Docker Compose | 0 | P0 |
-| T-003 | GitHub Actions CI/CD pipeline | 0 | P0 |
-| T-004 | RSpec + Brakeman + bundler-audit | 0 | P1 |
 | T-005 | ESLint + Prettier + Vite config | 0 | P1 |
-| T-006 | .env.example + variáveis de ambiente | 0 | P1 |
-| T-007 | Gemfile + dependências base | 0 | P0 |
+
+> **Nota:** T-001 a T-004, T-006 e T-007 já foram concluídos e movidos para `DONE/`.
+> T-005 é frontend (React dashboard/storefront) — pode ser adiado enquanto o Carva é API-only.
 
 ---
 

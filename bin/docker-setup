@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -e
+
+echo "🐳 Starting Carva Docker environment..."
+
+# Start services
+docker compose up -d postgres redis
+
+# Wait for PostgreSQL to be ready
+echo "⏳ Waiting for PostgreSQL..."
+until docker exec carva_postgres pg_isready -U postgres -d carva_dev; do
+  sleep 1
+done
+echo "✅ PostgreSQL ready"
+
+# Wait for Redis to be ready
+echo "⏳ Waiting for Redis..."
+until docker exec carva_redis redis-cli ping | grep -q PONG; do
+  sleep 1
+done
+echo "✅ Redis ready"
+
+# Create test database if not exists
+echo "🗄️  Creating test database..."
+docker exec carva_postgres psql -U postgres -d carva_dev -tc "SELECT 1 FROM pg_database WHERE datname = 'carva_test'" | grep -q 1 || \
+  docker exec carva_postgres psql -U postgres -d carva_dev -c "CREATE DATABASE carva_test;" 2>/dev/null || true
+
+echo "✅ Environment ready!"
+echo ""
+echo "  PostgreSQL: postgres://postgres:postgres@localhost:5432/carva_dev"
+echo "  Redis:      redis://localhost:6379/0"

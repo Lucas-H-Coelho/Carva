@@ -161,6 +161,7 @@ phase: Fase X
 priority: P0 | P1 | P2
 status: backlog | todo | in_progress | done
 depends: T-NNN, T-NNN
+tags: [feature, carva_core, blocking]
 ---
 ```
 
@@ -180,15 +181,59 @@ Kanban/
     └── T-013-rspec-setup.md
 ```
 
-**Como o agente opera:**
+### Tags do Kanban
+
+O projeto usa tags para classificar cards por tipo, domínio e status. **Todo card novo DEVE ter pelo menos uma tag de tipo e uma tag de engine/domínio.**
+
+#### Por tipo de trabalho
+
+| Tag | Uso |
+|-----|-----|
+| `feature` | Nova funcionalidade |
+| `bug` | Correção de erro |
+| `chore` | Configuração, dependências, CI/CD |
+| `refactor` | Melhorias sem mudar comportamento |
+| `docs` | Documentação |
+
+#### Por engine / domínio
+
+| Tag | Uso |
+|-----|-----|
+| `carva_core` | Core, autenticação, multi-tenancy |
+| `carva_billing` | Faturas, planos, assinaturas |
+| `carva_payments` | Stripe, pagamentos |
+| `carva_storefront` | Loja, catálogo |
+| `carva_theme` | Liquid, temas |
+| `carva_inventory` | Estoque, produtos |
+| `carva_marketing` | Campanhas, notificações |
+| `carva_dashboard` | Painel admin (React) |
+
+#### Por prioridade técnica
+
+| Tag | Uso |
+|-----|-----|
+| `blocking` | Bloqueia outras tarefas |
+| `tech-debt` | Dívida técnica |
+| `security` | Segurança |
+| `performance` | Otimização |
+
+#### Por status de review
+
+| Tag | Uso |
+|-----|-----|
+| `needs-review` | Precisa revisão |
+| `needs-testing` | Precisa testes |
+
+### Como o agente opera:
 
 1. **Sempre leia `Kanban/README.md`** antes de começar qualquer trabalho
 2. **Verifique `Kanban/TODO/README.md`** para ver o que está pronto
 3. **Mova um card para `IN_PROGRESS/`** antes de começar
 4. **Mova para `DONE/`** quando concluído
 5. **Nunca comece sem um card em `TODO/`** — se não houver, crie um primeiro
+6. **Sempre adicione tags** ao criar um novo card
 
-Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`.
+Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`, `tags`.
 
 ---
 
@@ -205,7 +250,25 @@ Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends
 - **Não gere código** a menos que explicitamente solicitado.
 - Quando houver ambiguidade, **documente suposições** claramente.
 
-### 3.2 Como Solicitar Código
+### 3.2 Commit Strategy
+
+- **Commit por etapa concluída** — cada card do Kanban = um commit atomico.
+- **Mensagens de commit** seguem Conventional Commits:
+  ```
+  chore: add docker-compose.yml with postgres and redis
+  feature: implement tenant resolver service
+  refactor: extract payment validation into service object
+  bug: fix N+1 query in tenant products index
+  docs: update AGENT.md with kanban tags
+  ```
+- **Escopo no commit** usa a tag de engine/domínio:
+  ```
+  chore(carva_core): add docker-compose.yml
+  feature(carva_payments): stripe webhook handler
+  ```
+- **Nunca commitar código incompleto** — só commit quando o checklist do card estiver 100% marcado.
+
+### 3.3 Como Solicitar Código
 
 ```
 Gere o código para: [descrição da feature]

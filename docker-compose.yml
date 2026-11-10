@@ -1,0 +1,57 @@
+# ============================================================
+# Carva — Docker Compose (ambiente de desenvolvimento)
+# ============================================================
+# Serviços: PostgreSQL 16 + Redis 7
+# Uso: docker compose up --wait -d
+# ============================================================
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: carva_postgres
+    environment:
+      POSTGRES_DB: carva_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - carva_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d carva_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - carva_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: carva_redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - carva_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - carva_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+
+networks:
+  carva_network:
+    name: carva_network
+    driver: bridge
+
+volumes:
+  carva_pg_data:
+    name: carva_pg_data
+  carva_redis_data:
+    name: carva_redis_data

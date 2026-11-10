@@ -1,0 +1,306 @@
+---
+id: T-002
+phase: Fase 0
+priority: P0
+status: done
+depends: none
+tags: [chore, carva_core, blocking]
+---
+
+# T-002 — PostgreSQL + Redis Docker Compose
+
+## Objetivo
+
+Configurar ambiente local de desenvolvimento com PostgreSQL 15+ e Redis 7+ via Docker Compose, com health checks, volumes persistentes e rede isolada.
+
+---
+
+## Decisões a Tomar (antes de começar)
+
+| # | Decisão | Opção A | Opção B | Recomendação |
+|---|---------|---------|---------|-------------|
+| D1 | PostgreSQL version | 15.x | 16.x | **15.x** — mais testado com Rails 7.1 |
+| Redis version | 7.x | 6.x | **7.x** — suporte a streams, melhor performance |
+| Docker Compose version | v2 (native) | v1 (legacy) | **v2** — nativo no Docker Desktop |
+| Network driver | bridge | host | **bridge** — mais isolado, funciona em todos OS |
+| Volume mount | named volumes | bind mounts | **named volumes** — mais portável, funciona em Windows/Mac |
+
+---
+
+## Passo a Passo
+
+### Passo 1 — Criar `docker-compose.yml`
+
+```yaml
+# docker-compose.yml
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: carva_postgres
+    environment:
+      POSTGRES_DB: carva_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - carva_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d carva_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - carva_network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: carva_redis
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - carva_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - carva_network
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+
+networks:
+  carva_network:
+    name: carva_network
+    driver: bridge
+
+volumes:
+  carva_pg_data:
+    name: carva_pg_data
+  carva_redis_data:
+    name: carva_redis_data
+```
+
+### Passo 2 — Criar `.dockerignore`
+
+```
+# Ignorar arquivos que não precisam no container
+.git
+.github
+.vscode
+node_modules
+npm-debug.log
+Dockerfile
+docker-compose.yml
+.env
+*.md
+Kanban/
+doc/
+```
+
+### Passo 3 — Configurar Rails para usar Docker services
+
+```ruby
+# config/database.yml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
+  port: <%= ENV.fetch("DATABASE_PORT") { "5432" } %>
+  database: <%= ENV.fetch("DATABASE_NAME") { "carva_dev" } %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { "postgres" } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "postgres" } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: carva_test
+
+production:
+  <<: *default
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
+```
+
+```ruby
+# config/redis.yml
+default: &default
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/0" } %>
+  pool: 5
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  pool: 5
+
+production:
+  <<: *default
+  pool: 10
+```
+
+### Passo 4 — Criar script de setup
+
+```bash
+# bin/docker-setup
+#!/usr/bin/env bash
+set -e
+
+echo "🐳 Starting Carva Docker environment..."
+
+# Start services
+docker compose up -d postgres redis
+
+# Wait for PostgreSQL to be ready
+echo "⏳ Waiting for PostgreSQL..."
+until docker exec carva_postgres pg_isready -U postgres -d carva_dev; do
+  sleep 1
+done
+echo "✅ PostgreSQL ready"
+
+# Wait for Redis to be ready
+echo "⏳ Waiting for Redis..."
+until docker exec carva_redis redis-cli ping | grep -q PONG; do
+  sleep 1
+done
+echo "✅ Redis ready"
+
+# Create databases
+echo "🗄️  Creating databases..."
+docker exec carva_postgres psql -U postgres -d carva_dev -c "CREATE DATABASE carva_test;" 2>/dev/null || true
+
+echo "✅ Environment ready!"
+echo ""
+echo "  PostgreSQL: postgres://postgres:postgres@localhost:5432/carva_dev"
+echo "  Redis:      redis://localhost:6379/0"
+```
+
+```bash
+# bin/docker-teardown
+#!/usr/bin/env bash
+set -e
+echo "🐳 Stopping Carva Docker environment..."
+docker compose down
+echo "✅ Stopped!"
+```
+
+```bash
+# bin/docker-reset
+#!/usr/bin/env bash
+set -e
+echo "🐳 Resetting Carva Docker environment..."
+docker compose down -v
+docker compose up -d
+sleep 5
+echo "✅ Reset complete!"
+```
+
+### Passo 5 — Tornar scripts executáveis
+
+```bash
+chmod +x bin/docker-setup
+chmod +x bin/docker-teardown
+chmod +x bin/docker-reset
+```
+
+---
+
+## Checklist de Aceitação
+
+- [ ] `docker-compose.yml` criado com `postgres` e `redis`
+- [ ] PostgreSQL usa imagem `postgres:15-alpine`
+- [ ] Redis usa imagem `redis:7-alpine` com `appendonly yes`
+- [ ] Health checks configurados para ambos os serviços
+- [ ] Named volumes criadas (`carva_pg_data`, `carva_redis_data`)
+- [ ] Rede customizada `carva_network` configurada
+- [ ] `docker compose up -d` inicia ambos os serviços sem erros
+- [ ] `docker compose ps` mostra ambos como healthy
+- [ ] PostgreSQL acessível em `localhost:5432`
+- [ ] Redis acessível em `localhost:6379`
+- [ ] `bin/docker-setup` funciona corretamente
+- [ ] `bin/docker-teardown` para os serviços
+- [ ] `bin/docker-reset` limpa e recria tudo
+- [ ] `config/database.yml` configurado para ler do env
+- [ ] `config/redis.yml` criado e configurado
+- [ ] `.dockerignore` criado
+
+---
+
+## Arquivos que devem existir ao final
+
+```
+Carva/
+├── docker-compose.yml
+├── .dockerignore
+├── bin/
+│   ├── docker-setup
+│   ├── docker-teardown
+│   └── docker-reset
+├── config/
+│   ├── database.yml
+│   └── redis.yml
+```
+
+---
+
+## Notas de Implementação
+
+- **Port binding:** Usar `127.0.0.1:5432:5432` para não expor ao network local
+- **Redis memory:** Limitar a 256MB com `allkeys-lru` para evitar OOM
+- **PostgreSQL:** Usar `alpine` para imagem menor (~30MB vs ~300MB)
+- **Volumes:** Named volumes funcionam em Windows/Mac/Linux sem problemas de path
+- **Health checks:** Essenciais para `docker compose up --wait` no futuro
+
+---
+
+## Riscos e Mitigações
+
+| Risco | Mitigação |
+|-------|-----------|
+| Porta 5432 já em uso no host | Script verifica porta antes de iniciar |
+| Container não inicia no boot | `restart: unless-stopped` no compose |
+| Redis perde dados | `appendonly yes` + named volume |
+| PostgreSQL não aceita conexões | Health check com `pg_isready` |
+| Docker não instalado | Script mostra mensagem de erro clara |
+
+---
+
+## Comandos Úteis para Desenvolvimento
+
+```bash
+# Iniciar ambiente
+bin/docker-setup
+
+# Parar ambiente
+bin/docker-teardown
+
+# Resetar tudo (drop volumes)
+bin/docker-reset
+
+# Verificar status
+docker compose ps
+
+# Ver logs
+docker compose logs -f postgres
+docker compose logs -f redis
+
+# Acessar PostgreSQL shell
+docker exec -it carva_postgres psql -U postgres -d carva_dev
+
+# Acessar Redis CLI
+docker exec -it carva_redis redis-cli
+
+# Verificar health
+docker inspect --format='{{.State.Health.Status}}' carva_postgres
+docker inspect --format='{{.State.Health.Status}}' carva_redis
+```

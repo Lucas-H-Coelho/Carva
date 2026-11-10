@@ -1,0 +1,4 @@
+---
+quiet: true
+no_pager: true
+skip_output: true

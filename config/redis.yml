@@ -1,0 +1,21 @@
+# ============================================================
+# Carva — redis.yml
+# ============================================================
+# Redis via Docker Compose (localhost:6379)
+# ============================================================
+
+default: &default
+  adapter: redis
+  url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/0" } %>
+  pool: 5
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  pool: 5
+
+production:
+  <<: *default
+  pool: 10

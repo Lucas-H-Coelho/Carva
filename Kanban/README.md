@@ -8,10 +8,10 @@
 
 | Coluna | Cards |
 |--------|-------|
-| 📋 **BACKLOG** | 2 |
-| 📥 **TODO** | 7 |
+| 📋 **BACKLOG** | 0 |
+| 📥 **TODO** | 1 |
 | 🔨 **IN_PROGRESS** | 0 |
-| ✅ **DONE** | 0 |
+| ✅ **DONE** | 8 |
 
 ---
 
@@ -34,6 +34,7 @@ phase: Fase X
 priority: P0 | P1 | P2
 status: backlog | todo | in_progress | done
 depends: T-NNN, T-NNN
+tags: [feature, carva_core, blocking]
 ---
 ```
 
@@ -55,26 +56,75 @@ Kanban/
 
 ---
 
+## Tags do Kanban
+
+### Por tipo de trabalho
+
+| Tag | Uso |
+|-----|-----|
+| `feature` | Nova funcionalidade |
+| `bug` | Correção de erro |
+| `chore` | Configuração, dependências, CI/CD |
+| `refactor` | Melhorias sem mudar comportamento |
+| `docs` | Documentação |
+
+### Por engine / domínio
+
+| Tag | Uso |
+|-----|-----|
+| `carva_core` | Core, autenticação, multi-tenancy |
+| `carva_billing` | Faturas, planos, assinaturas |
+| `carva_payments` | Stripe, pagamentos |
+| `carva_storefront` | Loja, catálogo |
+| `carva_theme` | Liquid, temas |
+| `carva_inventory` | Estoque, produtos |
+| `carva_marketing` | Campanhas, notificações |
+| `carva_dashboard` | Painel admin (React) |
+
+### Por prioridade técnica
+
+| Tag | Uso |
+|-----|-----|
+| `blocking` | Bloqueia outras tarefas |
+| `tech-debt` | Dívida técnica |
+| `security` | Segurança |
+| `performance` | Otimização |
+
+### Por status de review
+
+| Tag | Uso |
+|-----|-----|
+| `needs-review` | Precisa revisão |
+| `needs-testing` | Precisa testes |
+
+---
+
 ## Cards Atuais
 
 ### TODO
 
-| ID | Título | Prioridade |
-|----|--------|------------|
-| T-001 | Rails 7+ scaffold com engines | P0 |
-| T-002 | PostgreSQL + Redis Docker Compose | P0 |
-| T-003 | GitHub Actions CI/CD pipeline | P0 |
-| T-004 | RSpec + Brakeman + Bundler Audit | P1 |
-| T-005 | ESLint + Prettier + Vite config | P1 |
-| T-006 | .env.example + variáveis de ambiente | P1 |
-| T-007 | Gemfile + dependências base | P0 |
+| ID | Título | Prioridade | Tags |
+|----|--------|------------|------|
+| T-005 | ESLint + Prettier + Vite config | P1 | `chore`, `carva_dashboard` |
+
+> **Nota:** T-005 é frontend (React dashboard/storefront). Adiado enquanto o Carva é API-only.
+
+### DONE
+
+| ID | Título | Prioridade | Tags |
+|----|--------|------------|------|
+| T-001 | Rails 8.1.4.1 scaffold com engines | P0 | `chore`, `carva_core` |
+| T-002 | PostgreSQL + Redis Docker Compose | P0 | `chore`, `blocking` |
+| T-003 | GitHub Actions CI/CD pipeline | P0 | `chore`, `security` |
+| T-004 | RSpec + Brakeman + Bundler Audit | P1 | `chore`, `security` |
+| T-006 | .env.example + variáveis de ambiente | P1 | `chore`, `carva_core` |
+| T-007 | Gemfile + dependências base | P0 | `chore`, `carva_core` |
+| B-001 | Decisões de arquitetura | P0 | `docs`, `carva_core`, `blocking` |
+| B-002 | Regras e alinhamentos | P1 | `docs`, `carva_core` |
 
 ### BACKLOG
 
-| ID | Título | Prioridade |
-|----|--------|------------|
-| B-001 | Decisões de arquitetura pendentes | P0 |
-| B-002 | Regras e alinhamentos pendentes | P1 |
+_Nenhum item pendente._
 
 ---
 
@@ -86,7 +136,7 @@ Kanban/
 4. **Mova para `DONE/`** quando concluído
 5. **Nunca comece sem um card em `TODO/`** — se não houver, crie um primeiro
 
-Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`.
+Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`, `tags`.
 
 ---
 
@@ -98,6 +148,7 @@ Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends
 - **DETALHE MÍNIMO:** Cada card em `TODO/` deve ter: objetivo, decisões, passo a passo, checklist, riscos
 - **VALIDAÇÃO:** Só mover para `DONE/` quando TODOS os itens do checklist estiverem marcados
 - **BACKLOG ATIVO:** Se durante o trabalho surgir algo não definido, criar card em `BACKLOG/` antes de prosseguir
+- **TAGS OBRIGATÓRIAS:** Todo card novo DEVE ter pelo menos uma tag de tipo (`feature`, `bug`, `chore`, `refactor`, `docs`) e uma tag de engine/domínio
 
 ---
 
