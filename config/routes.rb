@@ -7,11 +7,22 @@ Rails.application.routes.draw do
       # Core engine (tenants, users, auth, multi-tenancy)
       mount Carva::Core::Engine => '/core'
 
+      # Auth routes
+      resource :session, only: %i[create destroy], path: 'session' do
+        get 'me', to: 'sessions#me', as: 'me'
+      end
+
       # Theme engine (Liquid parser, theme CRUD, schema)
       mount Carva::ThemeEngine::Engine => '/theme_engine'
 
       # Storefront engine (public pages, catalog, bookings)
       mount Carva::Storefront::Engine => '/storefront'
+
+      # Storefront API routes (public catalog + authenticated bookings)
+      get 'storefront/services', to: 'storefront/services#index', as: 'storefront_services'
+      get 'storefront/products', to: 'storefront/products#index', as: 'storefront_products'
+      post 'storefront/bookings', to: 'storefront/bookings#create', as: 'storefront_booking'
+      get 'storefront/bookings', to: 'storefront/bookings#index', as: 'storefront_bookings'
 
       # Billing engine (plans, subscriptions, invoicing)
       mount Carva::Billing::Engine => '/billing'

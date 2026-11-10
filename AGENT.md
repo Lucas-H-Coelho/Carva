@@ -438,6 +438,10 @@ Cada skill é descoberta automaticamente pelo agente via `.agents/skills/<name>/
 | **brandkit** | Geração de brand-kit premium: logo concepts, color systems, typography, mockups, visual direction boards. | Criar identidade visual, refresh de marca, board de brand guidelines, logo concepts, paleta. |
 | **api-and-interface-design** | API design estável, contract-first, Hyrum's Law, idempotency keys, pagination, error semantics. | Criar endpoints, definir contratos entre módulos, refatorar APIs públicas, design de interfaces. |
 | **code-review-and-quality** | Review multi-axis (correctness, readability, architecture, security, performance). Five-axis review, change sizing, dead code hygiene. | Antes de merge, após feature implementation, refactoring, bug fix, ou quando código de outro agente precisa avaliação. |
+| **fable-method** | Loop problem-solving: classify → define done → evidence → decide → act → verify → report. Elimina alucinação e retry thrash. | **Sempre** ao iniciar qualquer tarefa multi-step. Proativamente antes de dispatchar subagents. |
+| **fable-judge** | Verificação adversarial: trata "done" como claims, re-roda verificações, entrega VERIFIED/CAVEATS/REFUTED. | **Sempre** após subagent dizer "trabalho completo". Antes de mover card para DONE. |
+| **fable-loop** | Orquestração end-to-end: evidence subagents → plan → execute → verify → report. | Tarefas com 3+ passos heterogêneos. Fase 1+ (modelos, migrations, API). |
+| **fable-domain** | Gerar adapters de domínio (workflow + flowchart + trap + smoke eval). | Raramente — só para novos domínios não-coding (marketing, financeiro). |
 
 ### Como Usar
 

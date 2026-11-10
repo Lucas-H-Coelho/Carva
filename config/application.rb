@@ -41,6 +41,10 @@ module Carva
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Multi-tenancy middleware — runs before all other middleware
+    require_relative '../lib/carva/multi_tenancy/tenant_middleware'
+    config.middleware.insert_before 0, Carva::MultiTenancy::TenantMiddleware
+
     # ============================================================
     # ENGINES
     # ============================================================
@@ -48,6 +52,12 @@ module Carva
     engines_path = Rails.root.join('app', 'engines')
     config.autoload_paths << engines_path
     config.eager_load_paths << engines_path
+
+    # Engine model paths — needed so Rails can autoload namespaced models
+    config.autoload_paths << engines_path.join('carva_inventory', 'app', 'models')
+    config.eager_load_paths << engines_path.join('carva_inventory', 'app', 'models')
+    config.autoload_paths << engines_path.join('carva_storefront', 'app', 'models')
+    config.eager_load_paths << engines_path.join('carva_storefront', 'app', 'models')
 
     # CORS middleware
     config.middleware.insert_before(0, Rack::Cors) do
