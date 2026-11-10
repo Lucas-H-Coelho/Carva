@@ -19,6 +19,8 @@
 
 ## 2. User Stories Consolidadas
 
+> **Total:** 71 user stories (US-001 a US-071) em 12 categorias
+
 ### 2.1 Agendamento (S2 → S1/S3)
 
 | ID | Story | Stakeholders | Prioridade |
@@ -117,6 +119,44 @@
 | US-052 | Como gerente multi-tenant, quero definir meta de faturamento por unidade | S4 | P2 |
 | US-053 | Como gerente multi-tenant, quero ver previsão de demanda | S4 | P2 |
 
+### 2.10 Cancelamento e Reagendamento (S2)
+
+| ID | Story | Stakeholders | Prioridade |
+|----|-------|--------------|------------|
+| US-054 | Como cliente, quero cancelar agendamento e ver se tem multa | S2 | P0 |
+| US-055 | Como cliente, quero reagendar horário sem ligar | S2 | P0 |
+| US-056 | Como cliente, quero reagendar pelo WhatsApp | S2 | P0 |
+| US-057 | Como cliente, quero receber reembolso automático se lava-carro cancelar | S2 | P0 |
+
+### 2.11 Fidelização e Reclamações (S1/S2)
+
+| ID | Story | Stakeholders | Prioridade |
+|----|-------|--------------|------------|
+| US-058 | Como cliente, quero ver meus pontos e créditos de fidelidade | S2 | P1 |
+| US-059 | Como cliente, quero ganhar desconto por indicar amigo | S2 | P1 |
+| US-060 | Como cliente, quero registrar reclamação e receber solução em 24h | S2 | P1 |
+| US-061 | Como dono, quero ver reclamações e resolver antes de escalar | S1 | P1 |
+
+### 2.12 Gestão de Caixa e Emergência (S1)
+
+| ID | Story | Stakeholders | Prioridade |
+|----|-------|--------------|------------|
+| US-062 | Como dono, quero separar caixa do negócio do pessoal | S1 | P0 |
+| US-063 | Como dono, quero registrar despesas do negócio | S1 | P1 |
+| US-064 | Como dono, quero ver lucro líquido do dia | S1 | P1 |
+| US-065 | Como dono, quero controlar troco e contas a pagar | S1 | P1 |
+| US-066 | Como dono, quero backup manual de agendamentos se sistema cair | S1 | P1 |
+
+### 2.13 Crise e Transferência (S4)
+
+| ID | Story | Stakeholders | Prioridade |
+|----|-------|--------------|------------|
+| US-067 | Como gerente multi-tenant, quero registrar fechamento temporário de unidade | S4 | P0 |
+| US-068 | Como gerente multi-tenant, quero redistribuir agendamentos durante fechamento | S4 | P0 |
+| US-069 | Como gerente multi-tenant, quero solicitar transferência de equipe entre unidades | S4 | P1 |
+| US-070 | Como gerente multi-tenant, quero definir preço mínimo por tipo de lavagem | S4 | P0 |
+| US-071 | Como gerente multi-tenant, quero ver tabela de preços consolidada por unidade | S4 | P1 |
+
 ---
 
 ## 3. Funcionalidades por Prioridade
@@ -137,34 +177,51 @@
 | 10 | Notificações por WhatsApp | S2, S1, S4 | carva_marketing |
 | 11 | Cadastro rápido (donos, clientes, funcionários) | S1, S2, S3, S4 | carva_core |
 | 12 | Auth com WhatsApp (sem senha) | S2, S3 | carva_core |
+| 13 | Cancelar agendamento com info de multa | S2 | carva_storefront |
+| 14 | Reagendar horário sem ligar | S2 | carva_storefront |
+| 15 | Reagendar pelo WhatsApp | S2 | carva_marketing |
+| 16 | Separar caixa do negócio do pessoal | S1 | carva_billing |
+| 17 | Registrar atendimento walk-in | S1, S3 | carva_storefront |
+| 18 | Definir preço mínimo por tipo de lavagem | S4 | carva_storefront |
+| 19 | Registrar fechamento temporário de unidade | S4 | carva_dashboard |
+| 20 | Redistribuir agendamentos durante fechamento | S4 | carva_storefront |
 
 ### P1 — Importante para reter usuários
 
 | # | Funcionalidade | Stakeholders | Engine |
 |---|----------------|--------------|--------|
-| 13 | Exportar relatório mensal (PDF/Excel) | S1, S4 | carva_dashboard |
-| 14 | Transferir estoque entre unidades | S4 | carva_inventory |
-| 15 | Distribuir carros entre funcionários | S3 | carva_storefront |
-| 16 | Ver comissão por funcionário | S1, S3 | carva_billing |
-| 17 | Ver lucro bruto por unidade | S4 | carva_billing |
-| 18 | Avaliar serviço (estrelas) | S2, S1 | carva_storefront |
-| 19 | Lembrete de agendamento | S2 | carva_marketing |
-| 20 | Ver clientes mais frequentes | S1 | carva_marketing |
-| 21 | Definir preços por unidade | S4 | carva_storefront |
-| 22 | Gerenciar permissões | S4 | carva_core |
+| 23 | Exportar relatório mensal (PDF/Excel) | S1, S4 | carva_dashboard |
+| 24 | Transferir estoque entre unidades | S4 | carva_inventory |
+| 25 | Distribuir carros entre funcionários | S3 | carva_storefront |
+| 26 | Ver comissão por funcionário | S1, S3 | carva_billing |
+| 27 | Ver lucro bruto por unidade | S4 | carva_billing |
+| 28 | Avaliar serviço (estrelas) | S2, S1 | carva_storefront |
+| 29 | Lembrete de agendamento | S2 | carva_marketing |
+| 30 | Ver clientes mais frequentes | S1 | carva_marketing |
+| 31 | Definir preços por unidade | S4 | carva_storefront |
+| 32 | Gerenciar permissões | S4 | carva_core |
+| 33 | Ver pontos e créditos de fidelidade | S2 | carva_storefront |
+| 34 | Ganhar desconto por indicar amigo | S2 | carva_marketing |
+| 35 | Registrar reclamação e receber solução | S2, S1 | carva_storefront |
+| 36 | Registrar despesas do negócio | S1 | carva_billing |
+| 37 | Ver lucro líquido do dia | S1 | carva_billing |
+| 38 | Controlar troco e contas a pagar | S1 | carva_billing |
+| 39 | Backup manual de agendamentos | S1 | carva_storefront |
+| 40 | Solicitar transferência de equipe | S4 | carva_core |
+| 41 | Ver tabela de preços consolidada | S4 | carva_dashboard |
 
 ### P2 — Diferencial competitivo
 
 | # | Funcionalidade | Stakeholders | Engine |
 |---|----------------|--------------|--------|
-| 23 | Foto antes/depois do carro | S3 | carva_storefront |
-| 24 | Registrar dano no carro | S3 | carva_storefront |
-| 25 | Modo offline | S3 | carva_storefront |
-| 26 | Gráfico de crescimento por unidade | S4 | carva_dashboard |
-| 27 | Meta de faturamento por unidade | S4 | carva_dashboard |
-| 28 | Previsão de demanda | S4 | carva_dashboard |
-| 29 | Ranking de gerentes | S4 | carva_dashboard |
-| 30 | Campanha por unidade | S4 | carva_marketing |
+| 42 | Foto antes/depois do carro | S3 | carva_storefront |
+| 43 | Registrar dano no carro | S3 | carva_storefront |
+| 44 | Modo offline | S3 | carva_storefront |
+| 45 | Gráfico de crescimento por unidade | S4 | carva_dashboard |
+| 46 | Meta de faturamento por unidade | S4 | carva_dashboard |
+| 47 | Previsão de demanda | S4 | carva_dashboard |
+| 48 | Ranking de gerentes | S4 | carva_dashboard |
+| 49 | Campanha por unidade | S4 | carva_marketing |
 
 ---
 
@@ -285,4 +342,4 @@
 
 ---
 
-*Documento consolidado a partir de S1 (merchant-needs), S2 (customer-needs), S3 (employee-needs), S4 (manager-needs).*
+*Documento consolidado a partir de S1 (merchant-needs), S2 (customer-needs), S3 (employee-needs), S4 (manager-needs). 71 user stories, 49 funcionalidades (20 P0, 19 P1, 8 P2).*
