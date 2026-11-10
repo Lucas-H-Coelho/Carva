@@ -11,7 +11,7 @@ Este projeto foi inteiramente desenvolvido usando **IA generativa multimodal** c
 | Componente | Detalhe |
 |------------|---------|
 | **Modelo** | [Qwen3.6-35B-A3B Q2_K_XL](https://github.com/QwenLM/qwen) — modelo de linguagem com capacidades de visão (vision) |
-| **Runtime** | [Polystrata](https://github.com/pboyer/polystrata) — engine de clipping poligonal 2D de alta performance (Rust/WASM) para renderização de layouts e componentes visuais |
+| **Runtime** | [PolyStrata](https://github.com/simplexai-labs/PolyStrata) — engine de inferência local de LLMs (OpenAI/Anthropic API compatível) para execução de modelos grandes no PC |
 | **Hardware** | **AMD Ryzen 7 5700X** · **NVIDIA RTX 5060 Ti (16 GB VRAM)** · **32 GB RAM** — tudo executado localmente, sem dependência de APIs cloud |
 | **Design Skills** | [Taste Skill](https://www.tasteskill.dev/) — skill de design para agentes de IA, com art direction derivada de 247 sites curados, inspector em browser real e verificação de qualidade visual |
 
@@ -21,13 +21,14 @@ Este projeto foi inteiramente desenvolvido usando **IA generativa multimodal** c
 
 Modelo de linguagem de grande escala com capacidades multimodais (texto + visão), executado localmente. A capacidade de visão permitiu ao agente analisar screenshots, avaliar layouts e iterar sobre o design visual da plataforma.
 
-#### 2. Polystrata
+#### 2. PolyStrata
 
-[Biblioteca de clipping poligonal 2D](https://github.com/pboyer/polystrata) implementada em Rust e compilada para WebAssembly. Usada para renderização de layouts, componentes visuais e sistemas de grid no frontend.
+[Engine de inferência local de LLMs](https://github.com/simplexai-labs/PolyStrata) construída sobre o projeto Strata. Expõe uma API compatível com OpenAI e Anthropic em `http://127.0.0.1:8080`, permitindo que modelos grandes rodem localmente no PC — sem dependência de APIs cloud.
 
-- **Performance:** até 3.0x mais rápido que alternativas JS em workloads de intersection
-- **Robustez:** 100% de taxa de sucesso em 1000+ pares de polígonos adversariais
-- **Zero dependencies:** build ESM + CommonJS (~72 KB gzipped)
+- **Modelos suportados:** Qwen3.8-Flash-Next, Qwen3.6-35B-A3B, GLM 5.3 Flash, DeepSeek V4 Flash, LFM2.5, Flint, Ornith 1.5, Gemma 4, Tiel Coder, MiniCPM-V e mais
+- **Compatibilidade:** API OpenAI (`/v1/chat/completions`) e Anthropic (`/v1/messages`)
+- **Zero dados externos:** tudo roda localmente, sem tokens saírem do PC
+- **Install:** `./setup.sh` (Linux) ou `START-HERE.bat` (Windows) — one-click setup
 
 #### 3. Taste Skill
 
