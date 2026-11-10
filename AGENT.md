@@ -360,7 +360,38 @@ themes/
 
 ---
 
-## 8. Checklist de Review
+## 8. Skills Locais
+
+O projeto mantém um diretório `skills/` com skills Antigravity copiadas e adaptadas para uso contínuo.
+Cada skill é descoberta automaticamente pelo agente via `.agents/skills/<name>/SKILL.md` ou pelo diretório local `skills/<name>/SKILL.md`.
+
+### Skills Ativas
+
+| Skill | Uso | Quando carregar |
+|-------|-----|-----------------|
+| **design-taste-frontend** | Art direction anti-slop para páginas e app screens. Direções baseadas em 247 sites reais, inspector em browser real, look-and-fix loop. | Qualquer landing page, marketing site, product page, dashboard, admin view, ou quando a página parecer genérica/"AI-made". |
+| **impeccable** | Direção de design production-grade. Commands: `shape`, `polish`, `bolder`, `quieter`, `harden`, `animate`, `critique`, `audit`, `live`. | Redesign, polimento visual, UX review, acessibilidade, performance, animação, onboarding, empty states. |
+| **frontend-ui-engineering** | UI acessível, performática, com design system real. WCAG 2.1 AA, keyboard nav, responsive, loading states, anti-AI-aesthetic. | Construir ou modificar qualquer interface, componente, layout responsivo, estado de loading/erro/vazio. |
+| **brandkit** | Geração de brand-kit premium: logo concepts, color systems, typography, mockups, visual direction boards. | Criar identidade visual, refresh de marca, board de brand guidelines, logo concepts, paleta. |
+| **api-and-interface-design** | API design estável, contract-first, Hyrum's Law, idempotency keys, pagination, error semantics. | Criar endpoints, definir contratos entre módulos, refatorar APIs públicas, design de interfaces. |
+| **code-review-and-quality** | Review multi-axis (correctness, readability, architecture, security, performance). Five-axis review, change sizing, dead code hygiene. | Antes de merge, após feature implementation, refactoring, bug fix, ou quando código de outro agente precisa avaliação. |
+
+### Como Usar
+
+```bash
+# Listar skills disponíveis
+ls skills/
+
+# Ler uma skill completa
+cat skills/<name>/SKILL.md
+```
+
+As skills são **copiadas do ecossistema Antigravity** e mantidas locais para uso offline e versionamento.
+Atualizações do ecossistema devem ser aplicadas manualmente via `cp` do source original.
+
+---
+
+## 9. Checklist de Review
 
 Antes de qualquer PR, o agente deve verificar:
 
@@ -374,7 +405,7 @@ Antes de qualquer PR, o agente deve verificar:
 
 ---
 
-## 9. Glossário
+## 10. Glossário
 
 | Termo | Definição |
 |-------|-----------|
