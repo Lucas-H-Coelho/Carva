@@ -8,7 +8,7 @@
 
 | Coluna | Cards |
 |--------|-------|
-| 📋 **BACKLOG** | 28 |
+| 📋 **BACKLOG** | 36 |
 | 📥 **TODO** | 1 |
 | 🔨 **IN_PROGRESS** | 0 |
 | ✅ **DONE** | 12 |
