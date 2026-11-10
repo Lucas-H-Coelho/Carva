@@ -65,13 +65,13 @@ Tudo executado localmente — zero tokens, zero rate limits, zero custos de API.
 | Documento | Descrição |
 |-----------|-----------|
 | [AGENT.md](AGENT.md) | Guia de desenvolvimento assistido por IA — contexto, stack, regras, padrões |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Arquitetura do sistema — engines, multi-tenancy, API, padrões |
-| [THEME_SYSTEM.md](THEME_SYSTEM.md) | Engine de temas — Liquid, schema, editor, versionamento, hydration |
-| [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) | Design system — paleta de cores, tipografia, componentes, tokens |
-| [API_GUIDE.md](API_GUIDE.md) | Guia da API REST — endpoints, autenticação, webhooks, SDKs |
-| [DEPLOYMENT.md](DEPLOYMENT.md) | Guia de deploy — Docker, CI/CD, produção, scaling, backup |
-| [SECURITY.md](SECURITY.md) | Segurança — auth, authorization, dados, CSP, compliance |
-| [ROADMAP.md](ROADMAP.md) | Roadmap de implementação — fases, marcos, dependências |
+| [doc/ARCHITECTURE.md](doc/ARCHITECTURE.md) | Arquitetura do sistema — engines, multi-tenancy, API, padrões |
+| [doc/THEME_SYSTEM.md](doc/THEME_SYSTEM.md) | Engine de temas — Liquid, schema, editor, versionamento, hydration |
+| [doc/DESIGN_SYSTEM.md](doc/DESIGN_SYSTEM.md) | Design system — paleta de cores, tipografia, componentes, tokens |
+| [doc/API_GUIDE.md](doc/API_GUIDE.md) | Guia da API REST — endpoints, autenticação, webhooks, SDKs |
+| [doc/DEPLOYMENT.md](doc/DEPLOYMENT.md) | Guia de deploy — Docker, CI/CD, produção, scaling, backup |
+| [doc/SECURITY.md](doc/SECURITY.md) | Segurança — auth, authorization, dados, CSP, compliance |
+| [doc/ROADMAP.md](doc/ROADMAP.md) | Roadmap de implementação — fases, marcos, dependências |
 
 ---
 
