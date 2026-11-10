@@ -665,4 +665,10 @@ function getHydrationPoints(): HydrationPoint[] {
 
 ---
 
+## 1.6 Gestão de Tarefas
+
+Todas as mudanças no sistema de temas são rastreadas via sistema Kanban em `Kanban/`. Cada feature de tema, editor ou schema deve ter um card em `TODO/` antes de começar.
+
+---
+
 *Documento vivo — atualize conforme o sistema de temas evolui.*

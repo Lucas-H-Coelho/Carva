@@ -42,6 +42,21 @@ Carva é uma plataforma SaaS multi-tenant construída sobre **Ruby on Rails** co
 
 ---
 
+## 1.1 Kanban — Gestão de Tarefas
+
+O projeto usa um sistema Kanban em arquivos Markdown (`Kanban/`) para rastrear progresso. Cada card tem YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`.
+
+| Coluna | Significado |
+|--------|-------------|
+| 📋 **BACKLOG** | Tarefas futuras, não priorizadas |
+| 📥 **TODO** | Prontas para começar, priorizadas |
+| 🔨 **IN_PROGRESS** | Em desenvolvimento (máx. 1 por vez) |
+| ✅ **DONE** | Concluídas e validadas |
+
+**Regra:** nunca comece um card sem ele estar em `TODO/`. Mova para `IN_PROGRESS/` antes de começar, `DONE/` ao concluir.
+
+---
+
 ## 2. Engines Modulares
 
 ### 2.1 Estrutura de uma Engine

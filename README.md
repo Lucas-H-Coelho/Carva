@@ -66,6 +66,7 @@ Tudo executado localmente — zero tokens, zero rate limits, zero custos de API.
 | Documento | Descrição |
 |-----------|-----------|
 | [AGENT.md](AGENT.md) | Guia de desenvolvimento assistido por IA — contexto, stack, regras, padrões |
+| [Kanban/](Kanban/) | Sistema de gestão de tarefas — backlog, todo, in-progress, done |
 | [doc/ARCHITECTURE.md](doc/ARCHITECTURE.md) | Arquitetura do sistema — engines, multi-tenancy, API, padrões |
 | [doc/THEME_SYSTEM.md](doc/THEME_SYSTEM.md) | Engine de temas — Liquid, schema, editor, versionamento, hydration |
 | [doc/DESIGN_SYSTEM.md](doc/DESIGN_SYSTEM.md) | Design system — paleta de cores, tipografia, componentes, tokens |

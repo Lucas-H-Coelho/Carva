@@ -416,4 +416,10 @@ booking = carva.storefront.bookings.create(
 
 ---
 
+## 1.6 Gestão de Tarefas
+
+Todas as mudanças na API são rastreadas via sistema Kanban em `Kanban/`. Cada endpoint novo ou modificado deve ter um card correspondente em `TODO/` antes de começar a implementação.
+
+---
+
 *Documento vivo — atualize conforme a API evolui.*

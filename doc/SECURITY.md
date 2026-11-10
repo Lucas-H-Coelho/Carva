@@ -514,4 +514,10 @@ end
 
 ---
 
+## 1.6 Gestão de Tarefas
+
+Todas as mudanças de segurança são rastreadas via sistema Kanban em `Kanban/`. Cada vulnerabilidade, fix ou auditoria deve ter um card em `TODO/` antes de começar a implementação.
+
+---
+
 *Documento vivo — atualize conforme as ameaças evoluem.*

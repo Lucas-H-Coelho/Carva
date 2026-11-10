@@ -69,6 +69,12 @@ Permitir que donos de lava-carres configurem uma presença digital completa (loj
 
 ```
 Carva/
+├── Kanban/                         # Task management (kanban)
+│   ├── README.md                   # Visão geral + como usar
+│   ├── BACKLOG/                    # Tarefas futuras (Fases 1-7)
+│   ├── TODO/                       # Prontas para começar
+│   ├── IN_PROGRESS/                # Em desenvolvimento
+│   └── DONE/                       # Concluídas
 ├── app/
 │   ├── engines/                    # Engines modulares
 │   │   ├── carva_core/             # Core: tenants, auth, multi-tenancy
@@ -111,6 +117,29 @@ Carva/
 ├── vite.config.js
 └── README.md
 ```
+
+## 2.6 Kanban — Gestão de Tarefas
+
+O projeto usa um sistema Kanban em arquivos Markdown para rastrear progresso:
+
+| Pasta | Significado |
+|-------|-------------|
+| `Kanban/BACKLOG/` | Tarefas futuras, não priorizadas ainda |
+| `Kanban/TODO/` | Prontas para começar, priorizadas |
+| `Kanban/IN_PROGRESS/` | Em desenvolvimento (máx. 1 por vez) |
+| `Kanban/DONE/` | Concluídas e validadas |
+
+**Como o agente opera:**
+
+1. **Sempre leia `Kanban/README.md`** antes de começar qualquer trabalho
+2. **Verifique `Kanban/TODO/README.md`** para ver o que está pronto
+3. **Mova um card para `IN_PROGRESS/`** antes de começar
+4. **Mova para `DONE/`** quando concluído
+5. **Nunca comece sem um card em `TODO/`** — se não houver, crie um primeiro
+
+Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`.
+
+---
 
 ---
 

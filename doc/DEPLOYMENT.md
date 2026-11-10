@@ -607,4 +607,10 @@ cdn         IN  CNAME   cdn.carva.com.
 
 ---
 
+## 1.6 Gestão de Tarefas
+
+Todas as mudanças de infraestrutura e deploy são rastreadas via sistema Kanban em `Kanban/`. Cada tarefa de deploy, CI/CD ou scaling deve ter um card em `TODO/` antes de começar.
+
+---
+
 *Documento vivo — atualize conforme a infraestrutura evolui.*
