@@ -12,7 +12,7 @@ Este projeto foi inteiramente desenvolvido usando **IA generativa multimodal** c
 |------------|---------|
 | **Modelo** | [Qwen3.6-35B-A3B Q2_K_XL](https://github.com/QwenLM/qwen) — modelo de linguagem com capacidades de visão (vision) |
 | **Runtime** | [Polystrata](https://github.com/pboyer/polystrata) — engine de clipping poligonal 2D de alta performance (Rust/WASM) para renderização de layouts e componentes visuais |
-| **Hardware** | Executado localmente no hardware do desenvolvedor (GPU dedicada, sem dependência de APIs cloud) |
+| **Hardware** | **AMD Ryzen 7 5700X** · **NVIDIA RTX 5060 Ti (16 GB VRAM)** · **32 GB RAM** — tudo executado localmente, sem dependência de APIs cloud |
 | **Design Skills** | [Taste Skill](https://www.tasteskill.dev/) — skill de design para agentes de IA, com art direction derivada de 247 sites curados, inspector em browser real e verificação de qualidade visual |
 
 ### Ferramentas de IA Utilizadas
@@ -48,12 +48,15 @@ npx skills add Leonxlnx/taste-skill
 | `api-and-interface-design` | Design da API REST e boundaries entre módulos |
 | `codebase-design` | Vocabulário de módulos profundos para organização do código |
 
-### Por que Hardware Local?
+### Hardware Local
 
-- **Privacidade total** — código e dados nunca saem da máquina
-- **Latência zero** — sem dependência de APIs cloud
-- **Custo zero** — sem tokens, sem rate limits, sem custos de API
-- **Controle total** — iteração ilimitada sobre design, código e arquitetura
+| Componente | Especificação |
+|------------|--------------|
+| **CPU** | AMD Ryzen 7 5700X (8 núcleos / 16 threads) |
+| **GPU** | NVIDIA GeForce RTX 5060 Ti (16 GB VRAM) |
+| **RAM** | 32 GB |
+
+Tudo executado localmente — zero tokens, zero rate limits, zero custos de API. Iteração ilimitada sobre design, código e arquitetura.
 
 ---
 
@@ -140,4 +143,4 @@ A interface do Carva foi desenvolvida com **Taste Skill**, garantindo que cada p
 
 ## 📜 Licença
 
-Proprietário — todos os direitos reservados.
+MIT License — veja o arquivo [LICENSE](LICENSE) para detalhes.
