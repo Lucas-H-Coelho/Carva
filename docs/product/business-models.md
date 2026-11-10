@@ -29,15 +29,83 @@ O cliente compra o equipamento, você instala e configura. Depois, paga uma mens
 | **Starter** | Intel N100, 8GB RAM, 256GB SSD, Win11 Pro | ~R$ 1.100 | **R$ 1.499** |
 | **Pro** | Intel N100, 16GB RAM, 512GB SSD, Win11 Pro | ~R$ 1.500 | **R$ 2.199** |
 
-### Instalação
+### Instalação + Treinamento
 
 | Item | Custo | Preço |
 |------|-------|-------|
 | Deslocamento (ida/volta) | ~R$ 30–50 | Incluído |
 | Mão de obra no local (2h) | ~R$ 200 | Incluído |
 | Configuração remota (1h) | ~R$ 60 | Incluído |
-| Treinamento do dono | R$ 0 (grátis) | Incluído |
-| **Custo total** | **~R$ 290–310** | **Incluso no preço** |
+| **Custo instalação** | **~R$ 290–310** | **Incluso no preço** |
+
+#### Opções de Treinamento
+
+| Tipo | Formato | Preço | Quando usar |
+|------|---------|-------|-------------|
+| **Presencial** | 1 visita (2–3h no local) | Incluído | Primeira instalação |
+| **Online ao vivo** | Zoom/Meet, 1h, gravado | **+R$ 99** | Cliente não quer visita, ou está longe |
+| **Online gravado** | Vídeo + PDF, auto-estudo | **+R$ 49** | Cliente quer aprender no ritmo dele |
+| **Treinamento equipe** | Online, 2h, até 3 pessoas | **+R$ 149** | Dono quer treinar funcionários também |
+
+> **Dica:** Ofereça presencial + online ao vivo como padrão. Gravação e equipe como upsell.
+
+### Fluxo de Vendas
+
+```
+1. Cliente mostra interesse
+2. Você envia orçamento (R$ 1.499 ou R$ 2.199)
+3. Cliente escolhe:
+   a) Instalação presencial (incluído)
+   b) Online ao vivo (+R$ 99)
+   c) Online gravado (+R$ 49)
+   d) Pacote completo: presencial + equipe (+R$ 149)
+4. Cliente paga via PIX/boleto
+5. Você envia o Mini PC (frete grátis)
+6. Agenda instalação/treinamento
+7. Entra no plano de suporte mensal
+```
+
+### 🎓 Seção de Treinamento de Uso
+
+O Carva inclui uma **área de treinamento** dentro do próprio app, acessível pelo dono e funcionários.
+
+#### Estrutura
+
+| Módulo | Conteúdo | Formato | Duração |
+|--------|----------|---------|---------|
+| **M1 — Primeiros passos** | Criar conta, configurar unidade, cadastrar serviços | Vídeo 5 min | 5 min |
+| **M2 — Agendamento** | Como o cliente agenda, como você confirma | Vídeo 8 min | 8 min |
+| **M3 — Fluxo de caixa** | Registrar pagamento, ver resumo do dia | Vídeo 10 min | 10 min |
+| **M4 — Estoque** | Adicionar produtos, ver alertas, pedir reposição | Vídeo 8 min | 8 min |
+| **M5 — Equipe** | Adicionar funcionários, distribuir carros, ver comissões | Vídeo 12 min | 12 min |
+| **M6 — Relatórios** | Exportar PDF/Excel, comparar unidades | Vídeo 10 min | 10 min |
+| **Quiz de validação** | 5 perguntas pra liberar o acesso completo | Quiz | 3 min |
+
+#### Acesso
+
+```
+App → Menu → "Como usar o Carva"
+  → Lista de módulos (M1–M6)
+  → Cada módulo: vídeo + PDF + quiz
+  → Ao completar: desbloqueia módulo seguinte
+  → Quiz final: aprova o usuário como "formado"
+```
+
+#### Por que ter isso?
+
+- **Reduz suporte** — cliente que treinou precisa 60% menos ligações
+- **Escala o onboarding** — 1 vídeo = 100 clientes, sem custo adicional
+- **Qualifica o lead** — quem completa o quiz já tá engajado, churn menor
+- **Base pra upsell** — módulo "equipe" só aparece se tiver +1 funcionário
+
+#### No futuro
+
+- **M7 — WhatsApp** | Configurar notificações, templates | Vídeo 8 min | 8 min
+- **M8 — Fidelidade** | Pontos, créditos, indicações | Vídeo 10 min | 10 min
+- **M9 — Troubleshooting** | Erros comuns, como resolver | Vídeo 15 min | 15 min
+- **M10 — Avançado** | API, tema custom, integrações | Vídeo 20 min | 20 min
+
+---
 
 ### Mensalidade de Suporte
 
@@ -132,6 +200,19 @@ Você hospeda, cliente usa pelo celular. Assinatura mensal.
 - ❌ Support overhead (clientes não técnicos)
 - ❌ Churn mais fácil (cancela sem custo de saída)
 
+### 🔮 Melhorias Futuras (não implementar agora)
+
+| # | Melhoria | Quando | Impacto |
+|---|----------|--------|---------|
+| 1 | **Preço anual com desconto** (R$ 490/ano vs R$ 588) | Fase 3 | Reduz churn, aumenta LTV |
+| 2 | **Plano família** (2 unidades no mesmo preço) | Fase 3 | Captura redes pequenas |
+| 3 | **Cobrança por uso real** (R$ 0,50 por agendamento) | Fase 4 | Alinha preço ao volume |
+| 4 | **Marketplace de lavas** (visibilidade cruzada) | Fase 4 | Network effect, retenção |
+| 5 | **White-label para franqueadores** | Fase 5 | Canal de vendas indireto |
+| 6 | **Data-as-a-Service** (venda de insights anônimos) | Fase 5 | Receita extra, zero custo |
+
+> **Nota:** Manter essa seção como referência. Implementar só quando o produto estiver estável e com > 50 clientes ativos.
+
 ---
 
 ## 3. Revenue Share (Pay-per-Service)
@@ -168,6 +249,18 @@ Lava Bravas fatura R$ 2.000/mês em serviços
 - ❌ Receita menor no início
 - ❌ Dificuldade de medir faturamento real (depende do gateway)
 - ❌ Cliente pode evitar pagamento via gateway pra "escapar" da taxa
+
+### 🔮 Melhorias Futuras (não implementar agora)
+
+| # | Melhoria | Quando | Impacto |
+|---|----------|--------|---------|
+| 1 | **Cobrança por agendamento** (R$ 0,50 por agendamento concluído) | Fase 4 | Mais previsível que % |
+| 2 | **Taxa fixa mínima** (R$ 19/mês se faturar < R$ 950) | Fase 4 | Protege contra uso mínimo |
+| 3 | **Split automático** (2% vai direto do PIX pra sua conta) | Fase 4 | Elimina risco de evasão |
+| 4 | **Bônus de volume** (0,5% se faturar > R$ 5.000/mês) | Fase 5 | Incentiva crescimento |
+| 5 | **Integração com banco** (relatório automático de fluxo) | Fase 5 | Validação cruzada de faturamento |
+
+> **Nota:** Manter como referência. Implementar só quando o produto estiver estável e com > 50 clientes ativos.
 
 ---
 
