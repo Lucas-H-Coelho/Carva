@@ -110,7 +110,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 3.2'
-  gem 'simplecov', '~> 0.21', require: false
+  gem 'simplecov', '~> 1.3', require: false
   gem 'simplecov-json', '~> 0.2.3', require: false
 end
 

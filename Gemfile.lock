@@ -167,7 +167,6 @@ GEM
       devise (>= 4.0.0, < 6.0.0)
       warden-jwt_auth (~> 0.10)
     diff-lcs (1.6.2)
-    docile (1.4.1)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
@@ -465,15 +464,10 @@ GEM
       logger (>= 1.7.0)
       rack (>= 3.2.0)
       redis-client (>= 0.29.0)
-    simplecov (0.22.0)
-      docile (~> 1.1)
-      simplecov-html (~> 0.11)
-      simplecov_json_formatter (~> 0.1)
-    simplecov-html (0.13.2)
+    simplecov (1.3.2)
     simplecov-json (0.2.3)
       json
       simplecov
-    simplecov_json_formatter (0.1.4)
     solid_cable (4.1.0)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -567,7 +561,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   sentry-ruby (~> 5.11)
   sentry-sidekiq (~> 5.11)
-  simplecov (~> 0.21)
+  simplecov (~> 1.3)
   simplecov-json (~> 0.2.3)
   solid_cable
   solid_cache
@@ -613,7 +607,6 @@ CHECKSUMS
   devise (4.9.4) sha256=920042fe5e704c548aa4eb65ebdd65980b83ffae67feb32c697206bfd975a7f8
   devise-jwt (0.13.0) sha256=19720e64815cd4ba8cdaf338a482f0237e7f1542cc6439212be7db211e731d64
   diff-lcs (1.6.2) sha256=9ae0d2cba7d4df3075fe8cd8602a8604993efc0dfa934cff568969efb1909962
-  docile (1.4.1) sha256=96159be799bfa73cdb721b840e9802126e4e03dfc26863db73647204c727f21e
   dotenv (2.8.1) sha256=c5944793349ae03c432e1780a2ca929d60b88c7d14d52d630db0508c3a8a17d8
   dotenv-rails (2.8.1) sha256=b05b81b7f4e51d1359e218d92279db1d84b12440f7118c9df19b5dfffb620f6c
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
@@ -729,10 +722,8 @@ CHECKSUMS
   sentry-ruby (5.28.1) sha256=1162d474271e8b82202c984b1116db234007a084c5b73293e921468898d07e99
   sentry-sidekiq (5.28.1) sha256=1873d6ca4ba49086baec7a8128b322ae2c26ce892563ed625b8bfc0fa1bcd968
   sidekiq (8.1.7) sha256=91ad48c7e6c32e1846bf1d5b74c27948758049b93fed0cb539f8d586c7de3415
-  simplecov (0.22.0) sha256=fe2622c7834ff23b98066bb0a854284b2729a569ac659f82621fc22ef36213a5
-  simplecov-html (0.13.2) sha256=bd0b8e54e7c2d7685927e8d6286466359b6f16b18cb0df47b508e8d73c777246
+  simplecov (1.3.2) sha256=2a22ec1759f1b8db60881a2e038758956fc69ef93ed669be0bde0678de6d0e85
   simplecov-json (0.2.3) sha256=c63823b5dfc95c85ff4cb94251765f08a166bdd68098f259368cbfe738e281f7
-  simplecov_json_formatter (0.1.4) sha256=529418fbe8de1713ac2b2d612aa3daa56d316975d307244399fa4838c601b428
   solid_cable (4.1.0) sha256=828e3d509207b82b4f05f4e9c85f696994710679b52d511aa7f97ebd212d3226
   solid_cache (1.0.10) sha256=bc05a2fb3ac78a6f43cbb5946679cf9db67dd30d22939ededc385cb93e120d41
   solid_queue (1.7.2) sha256=a22685e1d2ee14ce7b4e5d4592c9d8e837951884c51555609dee58679ed03325
