@@ -141,18 +141,23 @@ O Carva é desenvolvido localmente, sem depender de APIs pagas ou cloud. Tudo ro
 
 ## 🛠️ Stack técnica
 
-| Camada | Tecnologia |
-|--------|-----------|
-| **Backend** | Ruby on Rails 7+ (API mode + engines mountáveis) |
-| **Frontend** | React 18+ (Vite, React Router, Zustand) |
-| **Temas** | Liquid (fork interno) + React hydration |
-| **Banco** | PostgreSQL 15+ |
-| **Cache** | Redis |
-| **Background** | Sidekiq (filas isoladas por tenant) |
-| **Pagamentos** | Stripe (padrão), PIX |
-| **Comunicação** | WhatsApp API, ActionMailer |
-| **Infra** | Docker + Docker Compose, GitHub Actions |
-| **Multi-tenancy** | `tenant_id` + subdomínios + domains customizados |
+| Camada | Tecnologia | Versão |
+|--------|-----------|--------|
+| **Ruby** | Ruby | `4.0.9` (LTS: `3.4.12`) |
+| **Backend** | Ruby on Rails | `8.1.4.1` |
+| **Frontend** | React | `19.3.1` |
+| **Build** | Vite | `8.3.6` |
+| **Roteamento** | React Router | `8.5.1` |
+| **Estado** | Zustand | `5.1.0` |
+| **Formulários** | React Hook Form | `7.91.0` |
+| **Validação** | Zod | `4.6.7` |
+| **Temas** | Liquid | `5.14.0` |
+| **Banco** | PostgreSQL | `18.6` |
+| **Cache** | Redis | `8.10.3` |
+| **Background** | Sidekiq | `8.1.7` |
+| **Pagamentos** | Stripe | `20.1.0` |
+| **Auth** | Devise | `5.0.4` |
+| **Infra** | Docker | `29.9.3` |
 
 ---
 
@@ -161,23 +166,29 @@ O Carva é desenvolvido localmente, sem depender de APIs pagas ou cloud. Tudo ro
 ```
 Carva/
 ├── app/
-│   ├── engines/              # Engines modulares (8)
-│   ├── components/           # Componentes React compartilhados
-│   ├── controllers/          # Controllers API + Admin
-│   ├── models/               # Models ActiveRecord
-│   ├── services/             # Service Objects
-│   ├── forms/                # Form Objects
-│   ├── value_objects/        # Value Objects
-│   └── policies/             # Policy/Ability
-├── config/                   # Rotas, initializers, I18n
+│   ├── engines/              # Engines modulares (8) — stubs
+│   ├── controllers/          # API v1 + healthcheck
+│   ├── jobs/                 # Background jobs (Sidekiq)
+│   ├── mailers/              # ActionMailer
+│   ├── models/               # Models globais (Tenant, User)
+│   └── views/                # Views Rails (mailer layouts)
+├── config/                   # Rotas, initializers, I18n, environments
 ├── db/                       # Migrations, seeds, schema
-├── docs/                     # Requisitos, stakeholders
+├── docs/                     # Requisitos, stakeholders, arquitetura
+│   ├── product/              # User stories, business models
+│   └── technical/            # Arquitetura, decisões técnicas
 ├── Kanban/                   # Gestão de tarefas (source of truth)
-├── lib/                      # Core library (theme, multi-tenancy, api)
-├── spec/                     # RSpec
+├── lib/                      # Core library (multi_tenancy, current)
+├── spec/                     # RSpec (controllers, models, engines)
 ├── skills/                   # Skills locais (Fable, design, code review)
+├── public/                   # Assets estáticos
+├── script/                   # Scripts utilitários
+├── storage/                  # Active Storage
 ├── AGENT.md                  # Guia do agente de IA
 ├── FABLE.md                  # Protocolo Fable Method
+├── Gemfile
+├── Dockerfile
+├── docker-compose.yml
 └── README.md                 # Este arquivo
 ```
 

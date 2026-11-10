@@ -10,7 +10,7 @@
 |-------|-------|
 | **Nome** | Carva |
 | **Tipo** | SaaS multi-tenant — plataforma de gestão para lava-carros |
-| **Stack** | Ruby on Rails (backend modular), React (dashboard + storefronts), Liquid (engine de temas), PostgreSQL, Redis, Sidekiq |
+| **Stack** | Ruby on Rails 8.1 (backend modular), React 19 (dashboard + storefronts), Liquid (engine de temas), PostgreSQL 18, Redis 8, Sidekiq 8 |
 | **Público** | Donos de lava-carro (não técnicos), clientes finais, desenvolvedores internos |
 | **Diferencial** | Engine de temas 100% interna, modular, sem dependência de temas externos — Liquid + React hydration |
 
@@ -32,51 +32,61 @@ Permitir que donos de lava-carro configurem uma presença digital completa (loja
 
 ### 2.1 Backend
 
-- **Framework:** Ruby on Rails 7+ (API mode + engines mountáveis)
-- **ORM:** ActiveRecord
-- **Banco:** PostgreSQL 15+
-- **Cache:** Redis + Rails.cache
-- **Background:** Sidekiq (filas isoladas por tenant)
-- **Pagamentos:** Stripe (padrão), extensível
-- **Comunicação:** Twilio (SMS), ActionMailer (email)
+| Componente | Versão | Nota |
+|-----------|--------|------|
+| **Ruby** | `4.0.9` | LTS security: `3.4.12` |
+| **Rails** | `8.1.4.1` | 8.0 EOL Nov/2026 |
+| **PostgreSQL** | `18.6` | 19 RC1 disponível |
+| **Redis** | `8.10.3` | 8.12 RC2 (não usar em prod) |
+| **Sidekiq** | `8.1.7` | Filas isoladas por tenant |
+| **Devise** | `5.0.4` | Auth |
+| **Liquid** | `5.14.0` | Template engine |
+| **Stripe** | `20.1.0` | Pagamentos |
+| **ImageProcessing** | `2.2` | Active Storage |
 
 ### 2.2 Frontend
 
-- **Framework:** React 18+ (Vite como bundler)
-- **Build:** Vite (SSR opcional via React Server Components)
-- **Estado:** React Context + Zustand (sem Redux)
-- **Roteamento:** React Router v6+
-- **Formulários:** React Hook Form + Zod (validação)
-- **CSS:** Variáveis CSS customizadas + utilitários internos (BEM-like)
+| Componente | Versão | Nota |
+|-----------|--------|------|
+| **React** | `19.3.1` | 19.0 saiu Set/2025 |
+| **Vite** | `8.3.6` | 8.x é o latest |
+| **React Router** | `8.5.1` | ESM-only, 8.0.0 Jun/2026 |
+| **Zustand** | `5.1.0` | State management |
+| **React Hook Form** | `7.91.0` | 8.0 em beta |
+| **Zod** | `4.6.7` | 4.x API mudou em relação ao 3.x |
 
 ### 2.3 Templating
 
-- **Engine:** Liquid (Shopify-compatible parser, fork interno)
+- **Engine:** Liquid `5.14.0` (Shopify-compatible parser, fork interno)
 - **Renderização:** Server-side → HTML → React hydration (isomórfico)
 - **Versionamento:** Cada tema tem `theme.yml` com `version`, `schema`, `dependencies`
 
 ### 2.4 Infra
 
-- **Containerização:** Docker + Docker Compose
-- **CI/CD:** GitHub Actions
-- **Multi-tenancy:** Isolamento por `tenant_id` + subdomínios + domains customizados
-- **CDN:** Cloudflare (assets estáticos)
-- **Monitoramento:** Sentry + OpenTelemetry
+| Componente | Versão | Nota |
+|-----------|--------|------|
+| **Docker** | `29.9.3` | stable |
+| **Docker Compose** | incluído | |
+| **GitHub Actions** | latest | CI/CD |
+| **Multi-tenancy** | `tenant_id` + subdomínios + domains customizados | |
+| **CDN** | Cloudflare | assets estáticos |
+| **Monitoramento** | Sentry + OpenTelemetry | |
 
 ---
 
-## 2.5 Estrutura de Pastas (Visão Geral)
+### 2.5 Estrutura de Pastas — Atual
 
 ```
 Carva/
 ├── Kanban/                         # Task management (kanban)
-│   ├── README.md                   # Visão geral + como usar
-│   ├── BACKLOG/                    # Tarefas futuras (Fases 1-7)
-│   ├── TODO/                       # Prontas para começar
-│   ├── IN_PROGRESS/                # Em desenvolvimento
-│   └── DONE/                       # Concluídas
 ├── app/
-│   ├── engines/                    # Engines modulares
+│   ├── controllers/                # API controllers (v1)
+│   │   ├── api/v1/                 # Namespace API
+│   │   │   ├── storefront/         # Storefront public APIs
+│   │   │   └── sessions_controller.rb
+│   │   ├── concerns/               # Controller concerns
+│   │   └── healthcheck_controller.rb
+│   ├── engines/                    # Engines modulares (stubs)
 │   │   ├── carva_core/             # Core: tenants, auth, multi-tenancy
 │   │   ├── carva_theme_engine/     # Engine de temas + Liquid
 │   │   ├── carva_storefront/       # Storefronts públicas
@@ -84,37 +94,51 @@ Carva/
 │   │   ├── carva_payments/         # Gateway de pagamentos
 │   │   ├── carva_inventory/        # Estoque, produtos, variantes
 │   │   ├── carva_marketing/        # Email, SMS, fidelidade
-│   │   └── carva_dashboard/        # Painel admin (React)
-│   ├── assets/                     # Imagens, ícones, fontes
-│   ├── components/                 # Componentes React compartilhados
-│   ├── controllers/                # Controllers API + Admin
-│   ├── models/                     # Models ActiveRecord
-│   ├── services/                   # Service Objects
-│   ├── forms/                      # Form Objects
-│   ├── value_objects/              # Value Objects
-│   ├── policies/                   # Policy/Ability
-│   └── views/                      # Views Rails (Liquid)
+│   │   ├── carva_dashboard/        # Painel admin (React)
+│   │   └── carva_store/            # Catálogo, produtos
+│   ├── jobs/                       # Background jobs (Sidekiq)
+│   ├── mailers/                    # ActionMailer
+│   ├── models/                     # Models ActiveRecord globais
+│   │   ├── application_record.rb
+│   │   ├── tenant.rb
+│   │   └── user.rb
+│   └── views/                      # Views Rails (mailer layouts)
 ├── config/
-│   ├── initializers/               # Configuração por engine
-│   ├── routes.rb                   # Router principal
-│   └── locales/                    # I18n (pt-BR, en)
+│   ├── initializers/               # Configurações
+│   ├── locales/                    # I18n (pt-BR, en)
+│   ├── environments/               # Config por ambiente
+│   └── routes.rb                   # Router principal
 ├── db/
-│   ├── migrate/                    # Migrations (namespaced por engine)
-│   ├── seeds/                      # Seeds por tenant
-│   └── schema.rb
+│   ├── migrate/                    # Migrations
+│   ├── seeds.rb                    # Seeds globais
+│   └── schema.rb                   # Schema atual
+├── docs/                           # Documentação do projeto
+│   ├── product/                    # Requisitos, stakeholders, business
+│   └── technical/                  # Arquitetura, decisões técnicas
 ├── lib/
 │   ├── carva/                      # Core library
-│   │   ├── theme/                  # Liquid parser, renderer
-│   │   ├── multi_tenancy/          # Tenant resolver, scoping
-│   │   └── api/                    # Versionamento de API
+│   │   ├── current.rb              # Current tenant context
+│   │   └── multi_tenancy/          # Tenant resolver, middleware
 │   └── tasks/                      # Rake tasks
 ├── spec/                           # RSpec
-├── test/                           # System/Integration tests
+│   ├── controllers/                # Controller specs
+│   ├── engines/                    # Engine specs
+│   ├── factories/                  # FactoryBot factories
+│   ├── lib/                        # Lib specs
+│   └── models/                     # Model specs
+├── skills/                         # Skills locais (Fable, design, code review)
 ├── public/                         # Assets estáticos
+├── script/                         # Scripts utilitários
+├── storage/                        # Active Storage
+├── tmp/                            # Temp files
+├── vendor/                         # Gems vendidas
+├── AGENT.md                        # Guia do agente
+├── FABLE.md                        # Protocolo Fable Method
 ├── Gemfile
 ├── Gemfile.lock
-├── package.json
-├── vite.config.js
+├── Dockerfile
+├── docker-compose.yml
+├── .env.example
 └── README.md
 ```
 
