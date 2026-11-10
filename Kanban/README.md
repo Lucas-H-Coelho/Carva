@@ -9,9 +9,9 @@
 | Coluna | Cards |
 |--------|-------|
 | 📋 **BACKLOG** | 0 |
-| 📥 **TODO** | 1 |
-| 🔨 **IN_PROGRESS** | 0 |
-| ✅ **DONE** | 8 |
+| 📥 **TODO** | 9 |
+| 🔨 **IN_PROGRESS** | 1 |
+| ✅ **DONE** | 12 |
 
 ---
 
@@ -21,9 +21,10 @@
 
 1. **Leia `Kanban/README.md`** → visão geral
 2. **Abra `Kanban/TODO/README.md`** → o que fazer agora
-3. **Crie card em `Kanban/TODO/`** → `T-NNN-titulo.md`
-4. **Mova para `IN_PROGRESS/`** → começou a trabalhar
-5. **Mova para `DONE/`** → concluído
+3. **Abra `Kanban/IN_PROGRESS/`** → o que está em andamento
+4. **Crie card em `Kanban/TODO/`** → `T-NNN-titulo.md`
+5. **Mova para `IN_PROGRESS/`** → começou a trabalhar
+6. **Mova para `DONE/`** → concluído
 
 ### Formato do Card (YAML frontmatter obrigatório)
 
@@ -105,9 +106,23 @@ Kanban/
 
 | ID | Título | Prioridade | Tags |
 |----|--------|------------|------|
-| T-005 | ESLint + Prettier + Vite config | P1 | `chore`, `carva_dashboard` |
+| T-014 | Billing plans table | P0 | `feature`, `carva_billing` |
+| T-015 | Billing transactions table | P0 | `feature`, `carva_billing` |
+| T-016 | Billing::BaseService | P0 | `feature`, `carva_billing` |
+| T-017 | Billing::SelfHostedService | P1 | `feature`, `carva_billing` |
+| T-018 | Billing::CloudSaaSService | P1 | `feature`, `carva_billing`, `carva_payments` |
+| T-019 | Billing::RevenueShareService | P1 | `feature`, `carva_billing`, `carva_payments` |
+| T-020 | Tenant#feature_enabled? + FeatureGate | P1 | `feature`, `carva_core` |
+| T-021 | Seed de billing plans | P1 | `feature`, `carva_billing` |
+| T-022 | Documentar arquitetura multi-modelo | P1 | `feature`, `carva_core`, `docs` |
 
 > **Nota:** T-005 é frontend (React dashboard/storefront). Adiado enquanto o Carva é API-only.
+
+### IN_PROGRESS
+
+| ID | Título | Prioridade | Tags |
+|----|--------|------------|------|
+| T-013 | Tenant schema: hosting_type, plan, features | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
 
 ### DONE
 
@@ -119,6 +134,11 @@ Kanban/
 | T-004 | RSpec + Brakeman + Bundler Audit | P1 | `chore`, `security` |
 | T-006 | .env.example + variáveis de ambiente | P1 | `chore`, `carva_core` |
 | T-007 | Gemfile + dependências base | P0 | `chore`, `carva_core` |
+| T-008 | Tenant model + multi-tenancy | P0 | `feature`, `carva_core` |
+| T-009 | User + Devise auth | P0 | `feature`, `carva_core` |
+| T-010 | Wash service domain models | P0 | `feature`, `carva_storefront` |
+| T-011 | API base controller + JSONAPI | P0 | `feature`, `carva_core` |
+| T-012 | Storefront API endpoints | P0 | `feature`, `carva_storefront` |
 | B-001 | Decisões de arquitetura | P0 | `docs`, `carva_core`, `blocking` |
 | B-002 | Regras e alinhamentos | P1 | `docs`, `carva_core` |
 
