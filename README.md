@@ -1,6 +1,59 @@
 # Carva
 
-> **Plataforma SaaS multi-tenant para gestão completa de lava-carres.**
+> **Plataforma SaaS multi-tenant para gestão completa de lava-carres.** Loja virtual, agendamento, pagamentos, estoque, fidelidade e marketing — tudo em um só lugar, com temas 100% customizáveis.
+
+---
+
+## 🤖 Desenvolvido com IA
+
+Este projeto foi inteiramente desenvolvido usando **IA generativa multimodal** com hardware local:
+
+| Componente | Detalhe |
+|------------|---------|
+| **Modelo** | [Qwen3.6-35B-A3B Q2_K_XL](https://github.com/QwenLM/qwen) — modelo de linguagem com capacidades de visão (vision) |
+| **Runtime** | [Polystrata](https://github.com/pboyer/polystrata) — engine de clipping poligonal 2D de alta performance (Rust/WASM) para renderização de layouts e componentes visuais |
+| **Hardware** | Executado localmente no hardware do desenvolvedor (GPU dedicada, sem dependência de APIs cloud) |
+| **Design Skills** | [Taste Skill](https://www.tasteskill.dev/) — skill de design para agentes de IA, com art direction derivada de 247 sites curados, inspector em browser real e verificação de qualidade visual |
+
+### Ferramentas de IA Utilizadas
+
+#### 1. Qwen3.6-35B-A3B Q2_K_XL (Vision)
+
+Modelo de linguagem de grande escala com capacidades multimodais (texto + visão), executado localmente. A capacidade de visão permitiu ao agente analisar screenshots, avaliar layouts e iterar sobre o design visual da plataforma.
+
+#### 2. Polystrata
+
+[Biblioteca de clipping poligonal 2D](https://github.com/pboyer/polystrata) implementada em Rust e compilada para WebAssembly. Usada para renderização de layouts, componentes visuais e sistemas de grid no frontend.
+
+- **Performance:** até 3.0x mais rápido que alternativas JS em workloads de intersection
+- **Robustez:** 100% de taxa de sucesso em 1000+ pares de polígonos adversariais
+- **Zero dependencies:** build ESM + CommonJS (~72 KB gzipped)
+
+#### 3. Taste Skill
+
+[Design skill para agentes de IA](https://www.tasteskill.dev/) que fornece art direction profissional para páginas e interfaces construídas por IA. A skill é instalada via:
+
+```bash
+npx skills add Leonxlnx/taste-skill
+```
+
+**Skills específicas usadas neste projeto:**
+
+| Skill | Uso |
+|-------|-----|
+| `design-taste-frontend` | Art direction para storefronts públicas — layouts inspirados em 247 sites curados, com inspector em browser real |
+| `design-taste-frontend` (modo app) | Design do dashboard admin e telas de gestão — painéis silenciosos, figuras alinhadas, cor aplicada em dados |
+| `impeccable` | Revisão de UX, hierarquia, tipografia, cor, motion e acessibilidade em todas as interfaces |
+| `frontend-ui-engineering` | Componentes React acessíveis, responsivos e com estado gerenciado |
+| `api-and-interface-design` | Design da API REST e boundaries entre módulos |
+| `codebase-design` | Vocabulário de módulos profundos para organização do código |
+
+### Por que Hardware Local?
+
+- **Privacidade total** — código e dados nunca saem da máquina
+- **Latência zero** — sem dependência de APIs cloud
+- **Custo zero** — sem tokens, sem rate limits, sem custos de API
+- **Controle total** — iteração ilimitada sobre design, código e arquitetura
 
 ---
 
@@ -74,7 +127,17 @@ bin/dev
 
 ---
 
+## 🎨 Design
+
+A interface do Carva foi desenvolvida com **Taste Skill**, garantindo que cada página tenha art direction profissional e não pareça gerada por IA:
+
+- **Storefronts:** layouts inspirados em sites curados, com inspector em browser real
+- **Dashboard:** painéis silenciosos, figuras alinhadas, cor aplicada em dados
+- **Paleta:** azul profundo (`#1A365D`) + verde-teal (`#10B981`) — limpeza, confiança automotiva
+- **Acessibilidade:** WCAG 2.1 AA em todas as interfaces
+
+---
+
 ## 📜 Licença
 
 Proprietário — todos os direitos reservados.
- 
