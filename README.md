@@ -166,29 +166,54 @@ O Carva é desenvolvido localmente, sem depender de APIs pagas ou cloud. Tudo ro
 ```
 Carva/
 ├── app/
-│   ├── engines/              # Engines modulares (8) — stubs
-│   ├── controllers/          # API v1 + healthcheck
-│   ├── jobs/                 # Background jobs (Sidekiq)
-│   ├── mailers/              # ActionMailer
-│   ├── models/               # Models globais (Tenant, User)
-│   └── views/                # Views Rails (mailer layouts)
-├── config/                   # Rotas, initializers, I18n, environments
-├── db/                       # Migrations, seeds, schema
-├── docs/                     # Requisitos, stakeholders, arquitetura
-│   ├── product/              # User stories, business models
-│   └── technical/            # Arquitetura, decisões técnicas
-├── lib/                      # Core library (multi_tenancy, current)
-├── spec/                     # RSpec (controllers, models, engines)
-├── skills/                   # Skills locais (Fable, design, code review)
-├── public/                   # Assets estáticos
-├── script/                   # Scripts utilitários
-├── storage/                  # Active Storage
-├── AGENT.md                  # Guia do agente de IA
-├── FABLE.md                  # Protocolo Fable Method
+│   ├── api/                    # API controllers (v1)
+│   │   ├── concerns/           # Controller concerns
+│   │   ├── v1/                 # Namespace API (controllers)
+│   │   ├── application_controller.rb
+│   │   └── healthcheck_controller.rb
+│   ├── admin/                  # Admin controllers (future)
+│   ├── storefront/             # Storefront controllers (future)
+│   ├── engines/                # Engines modulares (8) — stubs
+│   ├── forms/                  # Form objects (validação + persistência)
+│   ├── jobs/                   # Background jobs (Sidekiq)
+│   ├── mailers/                # ActionMailer
+│   ├── models/                 # Models globais (Tenant, User)
+│   ├── policies/               # Pundit policies (autorização)
+│   ├── services/               # Service objects (responsabilidade única)
+│   ├── value_objects/          # Value objects (imutáveis)
+│   └── views/                  # Views Rails (mailer layouts)
+├── config/                     # Rotas, initializers, I18n, environments
+├── db/                         # Migrations, seeds, schema
+├── docs/                       # Requisitos, stakeholders, arquitetura
+│   ├── product/                # User stories, business models
+│   └── technical/              # Arquitetura, decisões técnicas
+├── frontend/                   # React apps
+│   ├── dashboard/              # Admin SPA
+│   └── storefront/             # Storefront pública
+├── lib/                        # Core library (multi_tenancy, current)
+├── spec/                       # RSpec
+│   ├── api/                    # API controller specs
+│   ├── engines/                # Engine specs
+│   ├── factories/              # FactoryBot factories
+│   ├── forms/                  # Form object specs
+│   ├── lib/                    # Lib specs
+│   ├── middlewares/            # Middleware specs
+│   ├── models/                 # Model specs
+│   ├── openapi/                # OpenAPI/Swagger specs
+│   ├── policies/               # Policy specs
+│   └── services/               # Service object specs
+├── skills/                     # Skills locais (Fable, design, code review)
+├── themes/                     # Temas Liquid
+│   └── carva_default/          # Tema padrão
+├── public/                     # Assets estáticos
+├── script/                     # Scripts utilitários
+├── storage/                    # Active Storage
+├── AGENT.md                    # Guia do agente de IA
+├── FABLE.md                    # Protocolo Fable Method
 ├── Gemfile
 ├── Dockerfile
 ├── docker-compose.yml
-└── README.md                 # Este arquivo
+└── README.md                   # Este arquivo
 ```
 
 ---
@@ -273,10 +298,11 @@ Este projeto opera com agentes de IA como co-piloto de engenharia. Para interagi
 
 | Fase | Status | Descrição |
 |------|--------|-----------|
-| **Fase 1** | ✅ Concluída | Scaffold Rails, Docker, CI/CD, testes, gemfile |
-| **Fase 2** | 🔄 Em andamento | Core features MVP (agendamento, pagamento, estoque, dashboard) |
-| **Fase 3** | 📋 Planejada | Retenção e crescimento (relatórios, fidelização, reclamações) |
-| **Fase 4** | 📋 Planejada | Features avançadas (fotos, modo offline, gráficos, previsão) |
+| **Fase 0** | ✅ Concluída | Fundações (Rails, Docker, CI/CD, testes, reestrutura, docs) |
+| **Fase 1** | 🔄 Em andamento | Core features MVP (agendamento, pagamento, estoque, dashboard) |
+| **Fase 2** | 📋 Planejada | Billing + frontend (planos, transações, feature flags) |
+| **Fase 3** | 📋 Planejada | Avançado + frontend (WhatsApp, fidelização, reviews, dashboard) |
+| **Fase 4** | 📋 Planejada | Themes (Liquid + React hydration + storefront pública) |
 
 ---
 

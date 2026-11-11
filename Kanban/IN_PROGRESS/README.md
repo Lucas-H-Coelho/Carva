@@ -16,6 +16,12 @@
 
 _Nenhum card em andamento._
 
+---
+
+## Próximo Card
+
+**T-024** Bookings CRUD + React — depende de T-026 ✅ e T-044 ✅
+
 ## Regras
 
 1. **Máximo 1 card por vez** — não comece outro até finalizar

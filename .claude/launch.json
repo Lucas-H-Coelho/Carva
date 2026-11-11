@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "storefront",
+      "runtimeExecutable": "/home/rukashi/Documentos/GitHub/Carva/.claude/start-storefront.sh",
+      "port": 3001
+    },
+    {
+      "name": "dashboard",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3001,
+      "cwd": "/home/rukashi/Documentos/GitHub/Carva/frontend/dashboard"
+    }
+  ]
+}

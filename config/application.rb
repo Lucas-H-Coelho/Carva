@@ -66,6 +66,50 @@ module Carva
     # Middleware autoload path
     config.autoload_paths << Rails.root.join('app', 'middlewares')
 
+    # Custom app directories — each maps to its namespace:
+    #   app/api/        → Api::
+    #   app/services/   → Services::
+    #   app/forms/      → Forms::
+    #   app/value_objects/ → ValueObjects::
+    #   app/policies/   → Policies::
+    config.autoload_paths << Rails.root.join('app')
+    config.eager_load_paths << Rails.root.join('app')
+    config.autoload_paths << Rails.root.join('app', 'api')
+    config.eager_load_paths << Rails.root.join('app', 'api')
+    config.autoload_paths << Rails.root.join('app', 'api', 'v1')
+    config.eager_load_paths << Rails.root.join('app', 'api', 'v1')
+    config.autoload_paths << Rails.root.join('app', 'api', 'v1', 'storefront')
+    config.eager_load_paths << Rails.root.join('app', 'api', 'v1', 'storefront')
+    # Roots apenas em app/* (comportamento padrão do Rails). Cada subdiretório
+    # vira root com namespace Object; subdiretórios internos são namespaces.
+    #   app/services/carva_inventory/create_service.rb → CarvaInventory::CreateService
+    #   app/forms/carva_inventory/service_form.rb      → CarvaInventory::ServiceForm
+    #   app/policies/carva_dashboard/service_policy.rb → CarvaDashboard::ServicePolicy
+    # NÃO registrar subdiretórios como root — isso achataria os namespaces.
+
+    # Require API namespace files eagerly so constants exist before routes load
+    require_relative '../app/api'
+    require_relative '../app/api/application_controller'
+    require_relative '../app/api/v1'
+    require_relative '../app/api/v1/storefront_controller'
+    require_relative '../app/api/v1/storefront'
+    require_relative '../app/api/v1/storefront/products_controller'
+    require_relative '../app/api/v1/storefront/services_controller'
+    require_relative '../app/api/v1/storefront/bookings_controller'
+    require_relative '../app/api/v1/admin'
+    require_relative '../app/api/v1/admin/services_controller'
+    require_relative '../app/api/v1/public_controller'
+    require_relative '../app/api/v1/sessions_controller'
+    require_relative '../app/api/v1/api_keys_controller'
+    require_relative '../app/api/healthcheck_controller'
+    require_relative '../app/api/rswag_ui_controller'
+
+    # Serve static assets from public/ and frontend/ directories
+    config.public_file_server.enabled = true
+    config.public_file_server.headers = {
+      'Cache-Control' => 'public, max-age=31536000, immutable'
+    }
+
     # CORS middleware
     config.middleware.insert_before(0, Rack::Cors) do
       allow do

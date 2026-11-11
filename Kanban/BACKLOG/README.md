@@ -9,7 +9,7 @@
 
 | Fase | Cards | Prioridade |
 |------|-------|-----------|
-| Fundações | 8 | P0 |
+| Fundações | 8 (6 pendentes, 2 ✅) | P0 |
 | Core app + Frontend | 6 | P0 |
 | Billing + Frontend | 10 | P0–P1 |
 | Avançado + Frontend | 10 | P1–P2 |
@@ -25,12 +25,12 @@
 |---|------|-----------|---------|
 | 1 | **T-013** Tenant schema | T-012 ✅ | Base de tudo — hosting_type, plan, features |
 | 2 | **T-040** API Key Auth | T-009 ✅ | Pode rodar em paralelo com T-013 |
-| 3 | **T-041** Reestrutura repositório | T-013 | Organiza pastas antes de implementar |
-| 4 | **T-042** Models estrutura | T-041 | Models precisam estar no lugar certo |
-| 5 | **T-043** Services/forms/VO/policies | T-042 | Padrões de projeto base |
-| 6 | **T-046** Engines config | T-043 | Engines precisam estar configurados |
-| 7 | **T-047** Tests estrutura | T-046 | Testes precisam da estrutura certa |
-| 8 | **T-048** Docs atualizada | T-047 | Docs precisam refletir estrutura real |
+| 3 | **T-041** Reestrutura repositório | T-013 ✅ | Organiza pastas antes de implementar |
+| 4 | **T-042** Models estrutura | T-041 ✅ | Models precisam estar no lugar certo |
+| 5 | **T-043** Services/forms/VO/policies | T-042 ✅ | Padrões de projeto base |
+| 6 | **T-046** Engines config | T-043 ✅ | Engines precisam estar configurados |
+| 7 | **T-047** Tests estrutura ✅ DONE | T-046 | Testes precisam da estrutura certa |
+| 8 | **T-048** Docs atualizada ✅ DONE | T-047 | Docs precisam refletir estrutura real |
 
 ### 🟡 Fase 1 — Core app + Frontend (após T-013)
 
@@ -38,8 +38,8 @@ Cada feature é **pareada**: backend + frontend no mesmo card.
 
 | # | Card | Depende de | Por quê |
 |---|------|-----------|---------|
-| 9 | **T-044** Frontend estrutura | T-043 | React 19 + Vite 8 + RR8 — pré-requisito de TODO frontend |
-| 10 | **T-026** Services CRUD + React | T-013, T-044 | Serviços são o coração do negócio — backend + dashboard React |
+| 9 | **T-044** Frontend estrutura | T-043 ✅ | React 19 + Vite 8 + RR8 — pré-requisito de TODO frontend |
+| 10 | **T-026** Services CRUD + React 🟡 in_progress | T-013 ✅, T-044 ✅ | Serviços são o coração do negócio — backend + dashboard React |
 | 11 | **T-024** Bookings CRUD + React | T-013, T-026, T-044 | Agendamentos dependem de serviços — backend + dashboard React |
 | 12 | **T-027** Products CRUD + React | T-013, T-044 | Produtos/estoque — backend + dashboard React |
 | 13 | **T-025** Cancel/Reschedule + React | T-024, T-044 | Cancelamento depende de bookings — backend + dashboard React |

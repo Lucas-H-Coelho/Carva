@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
+  sequence(:tenant_subdomain) { |n| "tenant#{n}" }
+
   factory :tenant do
-    subdomain { 'meulava' }
+    subdomain { generate(:tenant_subdomain) }
     name { 'Lava Jato Test' }
     status { 'trial' }
     hosting_type { 'self_hosted' }

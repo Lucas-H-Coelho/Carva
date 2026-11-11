@@ -59,11 +59,16 @@ Rails.application.routes.draw do
 
       # Dashboard engine (React admin SPA)
       mount Carva::Dashboard::Engine => '/dashboard'
+
+      # Admin services API
+      resources :services, module: :admin, path: 'admin/services', only: %i[index show create update destroy] do
+        member { post :toggle_active }
+      end
     end
   end
 
   # ============================================================
   # Health check (Docker/K8s readiness probe)
   # ============================================================
-  get 'healthcheck' => 'healthcheck#index'
+  get 'healthcheck' => 'api/healthcheck#index'
 end

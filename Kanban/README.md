@@ -8,10 +8,10 @@
 
 | Coluna | Cards |
 |--------|-------|
-| 📋 **BACKLOG** | 34 |
+| 📋 **BACKLOG** | 32 |
 | 📥 **TODO** | 1 |
 | 🔨 **IN_PROGRESS** | 0 |
-| ✅ **DONE** | 19 |
+| ✅ **DONE** | 21 |
 
 ---
 
@@ -135,6 +135,8 @@ _Nenhum item em andamento._
 | T-012 | Storefront API endpoints | P0 | `feature`, `carva_storefront` |
 | T-013 | Tenant schema: hosting_type, plan, features | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
 | T-040 | API Key Auth | P1 | `feature`, `carva_core`, `security` |
+| T-047 | Tests estrutura | P0 | `chore`, `carva_core` |
+| T-048 | Docs atualizada | P0 | `docs`, `carva_core` |
 | T-049 | OpenAPI/Swagger documentação da API | P1 | `docs`, `carva_core`, `security` |
 | T-051 | QA Agent (verificação de qualidade) | P1 | `chore`, `carva_core`, `security` |
 | B-001 | Decisões de arquitetura | P0 | `docs`, `carva_core`, `blocking` |

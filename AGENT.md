@@ -134,12 +134,17 @@ NÃO É DONE:
 Carva/
 ├── docs/                           # Documentação do projeto
 ├── app/
-│   ├── controllers/                # API controllers (v1)
-│   │   ├── api/v1/                 # Namespace API
-│   │   │   ├── storefront/         # Storefront public APIs
-│   │   │   └── sessions_controller.rb
+│   ├── api/                        # API controllers (v1)
 │   │   ├── concerns/               # Controller concerns
+│   │   ├── v1/                     # Namespace API
+│   │   │   ├── storefront/         # Storefront public APIs
+│   │   │   │   ├── bookings_controller.rb
+│   │   │   │   ├── products_controller.rb
+│   │   │   │   └── services_controller.rb
+│   │   ├── application_controller.rb
 │   │   └── healthcheck_controller.rb
+│   ├── admin/                      # Admin controllers (future)
+│   ├── storefront/                 # Storefront controllers (future)
 │   ├── engines/                    # Engines modulares (stubs)
 │   │   ├── carva_core/             # Core: tenants, auth, multi-tenancy
 │   │   ├── carva_theme_engine/     # Engine de temas + Liquid
@@ -150,12 +155,16 @@ Carva/
 │   │   ├── carva_marketing/        # Email, SMS, fidelidade
 │   │   ├── carva_dashboard/        # Painel admin (React)
 │   │   └── carva_store/            # Catálogo, produtos
+│   ├── forms/                      # Form objects (validação + persistência)
 │   ├── jobs/                       # Background jobs (Sidekiq)
 │   ├── mailers/                    # ActionMailer
 │   ├── models/                     # Models ActiveRecord globais
 │   │   ├── application_record.rb
 │   │   ├── tenant.rb
 │   │   └── user.rb
+│   ├── policies/                   # Pundit policies (autorização)
+│   ├── services/                   # Service objects (responsabilidade única)
+│   ├── value_objects/              # Value objects (imutáveis)
 │   └── views/                      # Views Rails (mailer layouts)
 ├── config/
 │   ├── initializers/               # Configurações
@@ -169,18 +178,30 @@ Carva/
 ├── docs/                           # Documentação do projeto
 │   ├── product/                    # Requisitos, stakeholders, business
 │   └── technical/                  # Arquitetura, decisões técnicas
+├── frontend/
+│   ├── dashboard/                  # React admin SPA
+│   │   └── src/                    # Source code
+│   └── storefront/                 # React storefront
+│       └── src/                    # Source code
 ├── lib/
 │   ├── carva/                      # Core library
 │   │   ├── current.rb              # Current tenant context
 │   │   └── multi_tenancy/          # Tenant resolver, middleware
 │   └── tasks/                      # Rake tasks
 ├── spec/                           # RSpec
-│   ├── controllers/                # Controller specs
+│   ├── api/                        # API controller specs
 │   ├── engines/                    # Engine specs
 │   ├── factories/                  # FactoryBot factories
+│   ├── forms/                      # Form object specs
 │   ├── lib/                        # Lib specs
-│   └── models/                     # Model specs
+│   ├── middlewares/                # Middleware specs
+│   ├── models/                     # Model specs
+│   ├── openapi/                    # OpenAPI/Swagger specs
+│   ├── policies/                   # Policy specs
+│   └── services/                   # Service object specs
 ├── skills/                         # Skills locais (Fable, design, code review)
+├── themes/
+│   └── carva_default/              # Tema padrão (Liquid + assets)
 ├── public/                         # Assets estáticos
 ├── script/                         # Scripts utilitários
 ├── storage/                        # Active Storage

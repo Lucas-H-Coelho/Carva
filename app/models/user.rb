@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum :role, { owner: 'owner' }, prefix: true
+  enum :role, { owner: 'owner', shift_lead: 'shift_lead', employee: 'employee' }, prefix: true
 
   belongs_to :tenant
   has_many :bookings, class_name: 'Carva::Storefront::Booking'

@@ -7,74 +7,46 @@
 
 ## Resumo
 
-| Card | Fase | Prioridade | Depende de |
-|------|------|------------|------------|
-| T-040 | Fundações | P1 | T-009 ✅ |
-| T-044 | Fundações | P0 | T-043 ✅ (em backlog) |
-
----
-
-## Cards Atuais
-
-| ID | Card | Fase | Prioridade | Tags |
-|----|------|------|------------|------|
-| T-040 | API Key Auth | 0 | P1 | `feature`, `carva_core`, `security` |
-| T-044 | Frontend estrutura (React 19 + Vite 8 + RR8) | 0 | P0 | `feature`, `carva_dashboard`, `carva_storefront`, `blocking` |
+_Nenhuma tarefa pendente — Fundações (Fase 0) concluídas._
 
 ---
 
 ## Próximo na Fila
 
-Depois de T-013 e T-044, a ordem é:
-
-### Fundações (T-013 → T-048)
-1. **T-013** Tenant schema ← PRONTO (bloqueia tudo)
-2. **T-040** API Key Auth (paralelo com T-013)
-3. **T-041** Reestrutura repositório (organiza pastas antes de implementar)
-4. **T-042** Models estrutura (models precisam estar no lugar certo)
-5. **T-043** Services/forms/VO/policies (padrões de projeto base)
-6. **T-046** Engines config (engines precisam estar configurados)
-7. **T-047** Tests estrutura (testes precisam da estrutura certa)
-8. **T-048** Docs atualizada (docs precisam refletir estrutura real)
-9. **T-050** Pesquisa design patterns ← PRONTO (independente)
-
-### Frontend estrutura (após T-043)
-10. **T-044** Frontend estrutura ← PRONTO (bloqueia TODO frontend)
-
-### Core app + Frontend (após T-013 + T-044)
-11. **T-026** Services CRUD + React
-12. **T-024** Bookings CRUD + React
-13. **T-027** Products CRUD + React
-14. **T-025** Cancel/Reschedule + React
-15. **T-028** Cash Flow + React
-16. **T-036** Settings + React
+### Core app + Frontend (após T-013 + T-044 + T-047 + T-048)
+1. **T-026** Services CRUD + React ← PRONTO (backend + dashboard React)
+2. **T-024** Bookings CRUD + React
+3. **T-027** Products CRUD + React
+4. **T-025** Cancel/Reschedule + React
+5. **T-028** Cash Flow + React
+6. **T-036** Settings + React
 
 ### Billing + Frontend (após T-013)
-17. **T-014** Billing plans + React
-18. **T-015** Billing transactions + React
-19. **T-016** Billing::BaseService
-20. **T-017** SelfHostedService
-21. **T-018** CloudSaaSService
-22. **T-019** RevenueShareService
-23. **T-020** Feature flags
-24. **T-021** Seeds
-25. **T-022** Docs
-26. **T-039** Feature gates
+7. **T-014** Billing plans + React
+8. **T-015** Billing transactions + React
+9. **T-016** Billing::BaseService
+10. **T-017** SelfHostedService
+11. **T-018** CloudSaaSService
+12. **T-019** RevenueShareService
+13. **T-020** Feature flags
+14. **T-021** Seeds
+15. **T-022** Docs
+16. **T-039** Feature gates
 
 ### Avançado + Frontend (após core + billing)
-27. **T-023** WhatsApp OTP
-28. **T-029** WhatsApp notifs
-29. **T-030** Loyalty + React
-30. **T-031** Reviews + React
-31. **T-032** Dashboard + React
-32. **T-033** Multi-tenant Dashboard
-33. **T-034** Team distribution
-34. **T-035** Expenses
-35. **T-037** Before/after photos
-36. **T-038** Offline mode
+17. **T-023** WhatsApp OTP
+18. **T-029** WhatsApp notifs
+19. **T-030** Loyalty + React
+20. **T-031** Reviews + React
+21. **T-032** Dashboard + React
+22. **T-033** Multi-tenant Dashboard
+23. **T-034** Team distribution
+24. **T-035** Expenses
+25. **T-037** Before/after photos
+26. **T-038** Offline mode
 
 ### Themes (após T-048)
-37. **T-045** Themes Liquid + Storefront React
+27. **T-045** Themes Liquid + Storefront React
 
 ---
 
