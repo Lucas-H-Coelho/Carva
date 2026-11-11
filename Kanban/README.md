@@ -9,9 +9,9 @@
 | Coluna | Cards |
 |--------|-------|
 | 📋 **BACKLOG** | 35 |
-| 📥 **TODO** | 2 |
+| 📥 **TODO** | 1 |
 | 🔨 **IN_PROGRESS** | 0 |
-| ✅ **DONE** | 17 |
+| ✅ **DONE** | 13 |
 
 ---
 
