@@ -144,24 +144,27 @@ Carva/
 
 ## 2.6 Kanban — Gestão de Tarefas
 
-O projeto usa um sistema Kanban em arquivos Markdown para rastrear progresso:
+O projeto usa um sistema Kanban em pastas com arquivos Markdown para rastrear progresso:
 
 | Pasta | Significado |
 |-------|-------------|
-| Hermes Kanban | Tarefas no kanban do Hermes |
+| `Kanban/BACKLOG/` | Tarefas aguardando priorização |
+| `Kanban/TODO/` | Tarefas detalhadas, prontas para começar |
+| `Kanban/IN_PROGRESS/` | Tarefas em execução |
+| `Kanban/DONE/` | Tarefas concluídas e validadas |
 
 ### Regras Obrigatórias de Uso do Kanban
 
 **O agente DEVE seguir estas regras em TODA interação:**
 
-1. **LEITURA OBRIGATÓRIA:** Antes de qualquer ação, verificar o kanban do Hermes
-2. **BACKLOG PRIMEIRO:** Verificar a coluna backlog — se há itens P0 não resolvidos, NÃO prosseguir com implementação
-3. **UM CARD POR VEZ:** Nunca trabalhar em mais de 1 card em `IN_PROGRESS` simultaneamente
-4. **DEPENDÊNCIAS:** Respeitar `depends` no frontmatter — nunca começar um card cujos dependentes não estão em `DONE`
-5. **MOVIMENTO:** Mover card para `IN_PROGRESS/` ANTES de começar, para `DONE/` quando concluído
-6. **DETALHE MÍNIMO:** Cada card em `TODO/` deve ter: objetivo, decisões, passo a passo, checklist, riscos
-7. **VALIDAÇÃO:** Só mover para `DONE/` quando TODOS os itens do checklist estiverem marcados
-8. **BACKLOG ATIVO:** Se durante o trabalho surgir algo não definido, criar card em `BACKLOG/` antes de prosseguir
+1. **LEITURA OBRIGATÓRIA:** Antes de qualquer ação, ler `Kanban/README.md`
+2. **BACKLOG PRIMEIRO:** Verificar `Kanban/BACKLOG/README.md` — se há itens P0 não resolvidos, NÃO prosseguir com implementação
+3. **UM CARD POR VEZ:** Nunca trabalhar em mais de 1 card em `Kanban/IN_PROGRESS/` simultaneamente
+4. **DEPENDÊNCIAS:** Respeitar `depends` no frontmatter — nunca começar um card cujos dependentes não estão em `Kanban/DONE/`
+5. **MOVIMENTO:** Mover card para `Kanban/IN_PROGRESS/` ANTES de começar, para `Kanban/DONE/` quando concluído
+6. **DETALHE MÍNIMO:** Cada card em `Kanban/TODO/` deve ter: objetivo, decisões, passo a passo, checklist, riscos
+7. **VALIDAÇÃO:** Só mover para `Kanban/DONE/` quando TODOS os itens do checklist estiverem marcados
+8. **BACKLOG ATIVO:** Se durante o trabalho surgir algo não definido, criar card em `Kanban/BACKLOG/` antes de prosseguir
 
 ### Fluxo de Trabalho
 
@@ -173,7 +176,7 @@ BACKLOG → TODO → IN_PROGRESS → DONE
            começar  código     completo
 ```
 
-Tarefas gerenciadas no kanban do Hermes.
+Tarefas gerenciadas em `Kanban/` — colunas: `BACKLOG/`, `TODO/`, `IN_PROGRESS/`, `DONE/`.
 
 ### Formato do Card (YAML frontmatter obrigatório)
 
@@ -191,7 +194,17 @@ tags: [feature, carva_core, blocking]
 ### Convenção de Nomes
 
 ```
-Tarefas gerenciadas no kanban do Hermes — colunas: triage, todo, running, done
+Kanban/
+├── BACKLOG/
+│   ├── README.md
+│   └── T-NNN-titulo.md
+├── TODO/
+│   ├── README.md
+│   └── T-NNN-titulo.md
+├── IN_PROGRESS/
+│   └── T-NNN-titulo.md
+└── DONE/
+    └── T-NNN-titulo.md
 ```
 
 ### Tags do Kanban
@@ -239,11 +252,11 @@ O projeto usa tags para classificar cards por tipo, domínio e status. **Todo ca
 
 ### Como o agente opera:
 
-1. **Sempre verificar o kanban do Hermes** antes de começar qualquer trabalho
-2. **Verifique a coluna TODO** para ver o que está pronto
-3. **Mova um card para `IN_PROGRESS/`** antes de começar
-4. **Mova para `DONE/`** quando concluído
-5. **Nunca comece sem um card em `TODO/`** — se não houver, crie um primeiro
+1. **Sempre ler `Kanban/README.md`** antes de começar qualquer trabalho
+2. **Verifique `Kanban/TODO/`** para ver o que está pronto
+3. **Mova um card para `Kanban/IN_PROGRESS/`** antes de começar
+4. **Mova para `Kanban/DONE/`** quando concluído
+5. **Nunca comece sem um card em `Kanban/TODO/`** — se não houver, crie um primeiro
 6. **Sempre adicione tags** ao criar um novo card
 
 Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends`, `tags`.
