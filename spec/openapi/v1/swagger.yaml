@@ -400,7 +400,7 @@ paths:
                         example: 30
 
   # ------------------------------------------------------------------
-  # Bookings — POST /storefront/bookings (público)
+  # Bookings — POST/GET /storefront/bookings
   # ------------------------------------------------------------------
   /storefront/bookings:
     post:
@@ -451,11 +451,6 @@ paths:
                     type: array
                     items:
                       type: string
-
-  # ------------------------------------------------------------------
-  # Bookings — GET /storefront/bookings (autenticado)
-  # ------------------------------------------------------------------
-  /storefront/bookings:
     get:
       tags:
         - Bookings
@@ -536,7 +531,7 @@ paths:
                       $ref: '#/components/schemas/Slot'
 
   # ------------------------------------------------------------------
-  # Serviços — GET /inventory/services (autenticado)
+  # Serviços — GET/POST /inventory/services (autenticado)
   # ------------------------------------------------------------------
   /inventory/services:
     get:
@@ -556,11 +551,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Service'
-
-  # ------------------------------------------------------------------
-  # Serviços — POST /inventory/services (autenticado)
-  # ------------------------------------------------------------------
-  /inventory/services:
     post:
       tags:
         - Services
@@ -602,7 +592,7 @@ paths:
                 $ref: '#/components/schemas/Service'
 
   # ------------------------------------------------------------------
-  # Produtos — GET /inventory/products (autenticado)
+  # Produtos — GET/POST /inventory/products (autenticado)
   # ------------------------------------------------------------------
   /inventory/products:
     get:
@@ -622,11 +612,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
-
-  # ------------------------------------------------------------------
-  # Produtos — POST /inventory/products (autenticado)
-  # ------------------------------------------------------------------
-  /inventory/products:
     post:
       tags:
         - Products

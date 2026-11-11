@@ -8,7 +8,7 @@ RSpec.describe Api::V1::Storefront::BookingsController, type: :request do
   end
 
   describe 'POST /api/v1/storefront/bookings' do
-    let(:tenant) { create(:tenant) }
+    let(:tenant) { create(:tenant, :active) }
     let(:user) { create(:user, tenant: tenant) }
     let(:service) { create(:service, tenant: tenant, active: true) }
     let(:scheduled_at) { 1.day.from_now }
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::Storefront::BookingsController, type: :request do
   end
 
   describe 'GET /api/v1/storefront/bookings' do
-    let(:tenant) { create(:tenant) }
+    let(:tenant) { create(:tenant, :active) }
     let(:user) { create(:user, tenant: tenant) }
     let(:service) { create(:service, tenant: tenant, active: true) }
     let!(:past_booking) { create(:booking, tenant: tenant, user: user, service: service, scheduled_at: 1.day.ago, status: :pending) }

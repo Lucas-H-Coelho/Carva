@@ -71,9 +71,11 @@ RSpec.describe ApplicationController, type: :controller do
     end
 
     context 'when token is valid and tenant is active' do
+      let(:active_tenant) { create(:tenant, :active) }
+      let(:active_user) { create(:user, tenant: active_tenant) }
       let(:token) do
         JWT.encode(
-          { sub: user.id },
+          { sub: active_user.id },
           Rails.application.secret_key_base,
           'HS256'
         )
@@ -85,7 +87,7 @@ RSpec.describe ApplicationController, type: :controller do
 
       it 'sets @current_user' do
         controller.send(:authenticate_request)
-        expect(controller.instance_variable_get(:@current_user)).to eq(user)
+        expect(controller.instance_variable_get(:@current_user)).to eq(active_user)
       end
     end
   end
