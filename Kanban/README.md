@@ -10,8 +10,8 @@
 |--------|-------|
 | 📋 **BACKLOG** | 34 |
 | 📥 **TODO** | 1 |
-| 🔨 **IN_PROGRESS** | 1 |
-| ✅ **DONE** | 18 |
+| 🔨 **IN_PROGRESS** | 0 |
+| ✅ **DONE** | 19 |
 
 ---
 
@@ -116,9 +116,7 @@ Kanban/
 
 ### IN_PROGRESS
 
-| ID | Título | Prioridade | Tags |
-|----|--------|------------|------|
-| T-040 | API Key Auth | P1 | `feature`, `carva_core`, `security` |
+_Nenhum item em andamento._
 
 ### DONE
 
@@ -136,6 +134,7 @@ Kanban/
 | T-011 | API base controller + JSONAPI | P0 | `feature`, `carva_core` |
 | T-012 | Storefront API endpoints | P0 | `feature`, `carva_storefront` |
 | T-013 | Tenant schema: hosting_type, plan, features | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
+| T-040 | API Key Auth | P1 | `feature`, `carva_core`, `security` |
 | T-049 | OpenAPI/Swagger documentação da API | P1 | `docs`, `carva_core`, `security` |
 | T-051 | QA Agent (verificação de qualidade) | P1 | `chore`, `carva_core`, `security` |
 | B-001 | Decisões de arquitetura | P0 | `docs`, `carva_core`, `blocking` |
