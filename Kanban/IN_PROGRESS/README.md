@@ -14,9 +14,7 @@
 
 ## Cards em Progresso
 
-| ID | Card | Progresso |
-|----|------|-----------|
-| T-013 | Tenant schema: hosting_type, plan, features | Migration + model |
+_Nenhum card em andamento._
 
 ## Regras
 
@@ -27,4 +25,4 @@
 
 ---
 
-*T-013 em andamento.*
+*Nenhum card em progresso.*

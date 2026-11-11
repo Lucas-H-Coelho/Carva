@@ -9,7 +9,6 @@
 
 | Card | Fase | Prioridade | Depende de |
 |------|------|------------|------------|
-| T-013 | Fundações | P0 | T-012 ✅ |
 | T-044 | Fundações | P0 | T-043 ✅ (em backlog) |
 
 ---
@@ -18,7 +17,6 @@
 
 | ID | Card | Fase | Prioridade | Tags |
 |----|------|------|------------|------|
-| T-013 | Tenant schema: hosting_type, plan, features | 0 | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
 | T-044 | Frontend estrutura (React 19 + Vite 8 + RR8) | 0 | P0 | `feature`, `carva_dashboard`, `carva_storefront`, `blocking` |
 
 ---

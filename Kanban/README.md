@@ -9,9 +9,9 @@
 | Coluna | Cards |
 |--------|-------|
 | 📋 **BACKLOG** | 35 |
-| 📥 **TODO** | 2 |
+| 📥 **TODO** | 1 |
 | 🔨 **IN_PROGRESS** | 0 |
-| ✅ **DONE** | 12 |
+| ✅ **DONE** | 13 |
 
 ---
 
@@ -112,7 +112,6 @@ Kanban/
 
 | ID | Título | Prioridade | Tags |
 |----|--------|------------|------|
-| T-013 | Tenant schema: hosting_type, plan, features | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
 | T-044 | Frontend estrutura (React 19 + Vite 8 + RR8) | P0 | `feature`, `carva_dashboard`, `carva_storefront`, `blocking` |
 
 ### IN_PROGRESS
@@ -134,6 +133,7 @@ _Nenhum item em andamento._
 | T-010 | Wash service domain models | P0 | `feature`, `carva_storefront` |
 | T-011 | API base controller + JSONAPI | P0 | `feature`, `carva_core` |
 | T-012 | Storefront API endpoints | P0 | `feature`, `carva_storefront` |
+| T-013 | Tenant schema: hosting_type, plan, features | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
 | B-001 | Decisões de arquitetura | P0 | `docs`, `carva_core`, `blocking` |
 | B-002 | Regras e alinhamentos | P1 | `docs`, `carva_core` |
 
