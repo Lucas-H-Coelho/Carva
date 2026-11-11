@@ -49,4 +49,9 @@ RSpec.configure do |config|
 
   # Order
   config.order = :random
+
+  # Rswag — serve OpenAPI spec at /api/docs/v1/swagger.yaml
+  config.before :suite do
+    Rswag::Api::OpenapiSpec.define_definition('v1', 'http://{host}/api/v1')
+  end
 end

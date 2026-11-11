@@ -9,6 +9,7 @@
 
 | Card | Fase | Prioridade | Depende de |
 |------|------|------------|------------|
+| T-040 | Fundações | P1 | T-009 ✅ |
 | T-044 | Fundações | P0 | T-043 ✅ (em backlog) |
 
 ---
@@ -17,6 +18,7 @@
 
 | ID | Card | Fase | Prioridade | Tags |
 |----|------|------|------------|------|
+| T-040 | API Key Auth | 0 | P1 | `feature`, `carva_core`, `security` |
 | T-044 | Frontend estrutura (React 19 + Vite 8 + RR8) | 0 | P0 | `feature`, `carva_dashboard`, `carva_storefront`, `blocking` |
 
 ---

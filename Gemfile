@@ -112,6 +112,8 @@ group :development, :test do
   gem 'faker', '~> 3.2'
   gem 'simplecov', '~> 1.3', require: false
   gem 'simplecov-json', '~> 0.2.3', require: false
+  gem 'rswag-api', '~> 2.7'
+  gem 'rswag-ui', '~> 2.7'
 end
 
 # ============================================================

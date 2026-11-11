@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # Swagger YAML — servido fora do mount do UI para não ser interceptado
+  get '/swagger.yaml', to: 'rswag_ui#swagger_yaml', as: :swagger_yaml
+
+  # Swagger UI — API documentation
+  mount Rswag::Ui::Engine => '/api/docs'
   # ============================================================
   # API V1 — Engine routes
   # ============================================================

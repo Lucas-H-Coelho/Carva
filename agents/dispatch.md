@@ -82,6 +82,47 @@ Se o card só cobre uma camada (ex: só backend), o líder DEVE dispatchar outro
 
 ---
 
+## Fluxo QA (Antes de DONE)
+
+Antes de mover qualquer card para `DONE/`, o líder DEVE passar pelo QA:
+
+```
+FLUXO QA:
+  1. Subagent entrega feature
+  2. Líder lê arquivos criados
+  3. Líder roda script/qa-check.sh
+  4. QA passa → move para DONE/
+  5. QA falha → corrige ou dispatcha QA agent
+```
+
+### Opção A — QA automático (script)
+
+```bash
+# Rodar verificação completa
+./script/qa-check.sh
+
+# Ou verificar só uma feature específica
+./script/qa-check.sh app/models/carva_core
+```
+
+### Opção B — QA manual (QA Agent)
+
+Quando a feature é complexa ou o script não cobre:
+
+1. Dispatch subagent QA com tag `needs-review`
+2. QA verifica checklist completo (`agents/profiles/qa.md`)
+3. QA reporta: passou ou falhou (com output real)
+4. Se falhou → corrigir ou dispatchar de volta
+
+### Regras do QA
+
+- **NUNCA** mover para DONE sem passar pelo QA
+- **SEMPRE** rodar `qa-check.sh` antes de chamar QA agent
+- **SE** QA agent falhar → corrigir diretamente OU dispatchar com diagnóstico
+- **HARD BOUND:** 3 tentativas = hand-back para o líder
+
+---
+
 ## Ao Receber Output do Subagent
 
 ### 1. Ler os arquivos criados
@@ -196,6 +237,35 @@ LÍDER:
 ```
 
 ⚠️ **Este card NÃO segue feature-complete** — entregou só backend, sem React components.
+
+---
+
+### Card: T-051 QA Agent (quality gate)
+
+```
+LÍDER:
+  1. Criou card em TODO/ com frontmatter
+  2. Moveu para IN_PROGRESS/
+  3. Dispatch subagent com:
+     - Contexto: Rails 8.1, RSpec, Brakeman
+     - Arquivos: agents/profiles/qa.md, script/qa-check.sh, agents/dispatch.md
+     - Comandos: chmod +x script/qa-check.sh, ./script/qa-check.sh
+     - Regras: não refatorar código não solicitado, naming snake_case
+
+SUBAGENTE QA:
+  1. Criou agents/profiles/qa.md com checklist completo
+  2. Criou script/qa-check.sh executável
+  3. Atualizou agents/dispatch.md com fluxo QA
+  4. Rodou chmod +x e verificou output
+  5. Reportou sucesso
+
+LÍDER:
+  1. Li agents/profiles/qa.md → existe, tem conteúdo
+  2. Li script/qa-check.sh → é executável, tem lógica
+  3. Li agents/dispatch.md → QA incluído no fluxo
+  4. Rodé ./script/qa-check.sh → passou
+  5. Movi card para DONE/, atualizei README
+```
 
 ---
 

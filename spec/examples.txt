@@ -6,6 +6,11 @@ example_id                                                                      
 ./spec/controllers/api/v1/sessions_controller_spec.rb[1:2:1:1]                   | passed | 0.00492 seconds |
 ./spec/controllers/api/v1/sessions_controller_spec.rb[1:2:2:1]                   | passed | 0.00151 seconds |
 ./spec/controllers/api/v1/sessions_controller_spec.rb[1:3:1]                     | passed | 0.00155 seconds |
+./spec/controllers/api_keys_controller_spec.rb[1:1:1:1]                          | failed | 0.00711 seconds |
+./spec/controllers/api_keys_controller_spec.rb[1:1:2:1]                          | failed | 0.002 seconds   |
+./spec/controllers/api_keys_controller_spec.rb[1:2:1:1]                          | failed | 0.00716 seconds |
+./spec/controllers/api_keys_controller_spec.rb[1:2:1:2]                          | failed | 0.00085 seconds |
+./spec/controllers/api_keys_controller_spec.rb[1:2:2:1]                          | failed | 0.00074 seconds |
 ./spec/controllers/application_controller_spec.rb[1:1:1:1]                       | passed | 0.00091 seconds |
 ./spec/controllers/application_controller_spec.rb[1:1:2:1]                       | passed | 0.00091 seconds |
 ./spec/controllers/application_controller_spec.rb[1:1:3:1]                       | passed | 0.00349 seconds |
@@ -21,6 +26,11 @@ example_id                                                                      
 ./spec/controllers/healthcheck_controller_spec.rb[1:1:1]                         | passed | 0.0017 seconds  |
 ./spec/controllers/healthcheck_controller_spec.rb[1:1:2]                         | passed | 0.00166 seconds |
 ./spec/controllers/healthcheck_controller_spec.rb[1:1:3]                         | passed | 0.00244 seconds |
+./spec/controllers/public_controller_spec.rb[1:1:1:1]                            | failed | 0.04431 seconds |
+./spec/controllers/public_controller_spec.rb[1:1:2:1]                            | passed | 0.0063 seconds  |
+./spec/controllers/public_controller_spec.rb[1:2:1:1]                            | failed | 0.00539 seconds |
+./spec/controllers/public_controller_spec.rb[1:2:2:1]                            | passed | 0.03211 seconds |
+./spec/controllers/public_controller_spec.rb[1:3:1]                              | passed | 0.20866 seconds |
 ./spec/engines/carva_inventory/models/product_spec.rb[1:1:1]                     | passed | 0.01108 seconds |
 ./spec/engines/carva_inventory/models/product_spec.rb[1:1:2]                     | passed | 0.00206 seconds |
 ./spec/engines/carva_inventory/models/product_spec.rb[1:2:1:1]                   | passed | 0.00223 seconds |
@@ -82,6 +92,12 @@ example_id                                                                      
 ./spec/lib/carva/multi_tenancy/tenant_resolver_spec.rb[1:1:2:1]                  | passed | 0.00062 seconds |
 ./spec/lib/carva/multi_tenancy/tenant_resolver_spec.rb[1:1:3:1]                  | passed | 0.00102 seconds |
 ./spec/lib/carva/multi_tenancy/tenant_resolver_spec.rb[1:1:4:1]                  | passed | 0.00088 seconds |
+./spec/middlewares/api_key_auth_spec.rb[1:1:1]                                   | passed | 0.02324 seconds |
+./spec/middlewares/api_key_auth_spec.rb[1:1:2]                                   | passed | 0.00588 seconds |
+./spec/middlewares/api_key_auth_spec.rb[1:2:1]                                   | passed | 0.00106 seconds |
+./spec/middlewares/api_key_auth_spec.rb[1:3:1]                                   | passed | 0.00513 seconds |
+./spec/middlewares/api_key_auth_spec.rb[1:4:1]                                   | passed | 0.00077 seconds |
+./spec/middlewares/api_key_auth_spec.rb[1:5:1]                                   | passed | 0.00489 seconds |
 ./spec/models/tenant_spec.rb[1:1:1:1]                                            | passed | 0.00105 seconds |
 ./spec/models/tenant_spec.rb[1:1:1:2]                                            | passed | 0.00095 seconds |
 ./spec/models/tenant_spec.rb[1:1:1:3]                                            | passed | 0.00103 seconds |

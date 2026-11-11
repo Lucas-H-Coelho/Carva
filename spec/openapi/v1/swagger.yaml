@@ -1,0 +1,668 @@
+openapi: "3.0.3"
+info:
+  title: Carva API
+  description: Documentação da API REST do Carva — plataforma de gestão de salões e barbearias.
+  version: 1.0.0
+  contact:
+    name: Carva Dev Team
+
+servers:
+  - url: "http://{host}/api/v1"
+    variables:
+      host:
+        default: localhost:3000
+        description: Host da aplicação
+
+# ============================================================
+# COMPONENTS — Schemas reutilizáveis
+# ============================================================
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Token JWT retornado pelo login (Devise + devise-jwt)
+
+  schemas:
+    # ---------- User ----------
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          format: email
+          example: usuario@carva.com
+        first_name:
+          type: string
+          example: João
+        last_name:
+          type: string
+          example: Silva
+        role:
+          type: string
+          enum: [admin, manager, professional, receptionist]
+          example: admin
+        tenant_id:
+          type: integer
+          example: 1
+      required: [id, email]
+
+    # ---------- Service ----------
+    Service:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Corte Masculino
+        description:
+          type: string
+          example: Corte de cabelo masculino com acabamento.
+        price:
+          type: number
+          format: float
+          example: 50.00
+        duration_minutes:
+          type: integer
+          example: 30
+        category:
+          type: string
+          example: corte
+        active:
+          type: boolean
+          example: true
+      required: [id, name, price]
+
+    # ---------- Product ----------
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Shampoo Profissional
+        description:
+          type: string
+          example: Shampoo para cabelos normais.
+        price:
+          type: number
+          format: float
+          example: 35.00
+        sku:
+          type: string
+          example: PROD-001
+        stock_quantity:
+          type: integer
+          example: 100
+        active:
+          type: boolean
+          example: true
+      required: [id, name, price, sku]
+
+    # ---------- Booking ----------
+    Booking:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        service_id:
+          type: integer
+          example: 1
+        professional_id:
+          type: integer
+          example: 2
+        customer_name:
+          type: string
+          example: Maria Souza
+        customer_phone:
+          type: string
+          example: "(11) 99999-0000"
+        scheduled_at:
+          type: string
+          format: date-time
+          example: "2025-06-15T10:00:00Z"
+        status:
+          type: string
+          enum: [scheduled, confirmed, completed, cancelled]
+          example: scheduled
+        total_price:
+          type: number
+          format: float
+          example: 50.00
+      required: [id, service_id, scheduled_at, status]
+
+    # ---------- Slot ----------
+    Slot:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        date:
+          type: string
+          format: date
+          example: "2025-06-15"
+        time:
+          type: string
+          format: time
+          example: "10:00:00"
+        professional_id:
+          type: integer
+          example: 2
+        available:
+          type: boolean
+          example: true
+
+    # ---------- Health ----------
+    HealthCheck:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-06-10T12:00:00Z"
+        version:
+          type: string
+          example: 1.0.0
+
+    # ---------- Errors ----------
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: invalid_credentials
+        message:
+          type: string
+          example: E-mail ou senha inválidos.
+        code:
+          type: integer
+          example: 401
+
+# ============================================================
+# PATHS
+# ============================================================
+paths:
+  # ------------------------------------------------------------------
+  # Health Check — público
+  # ------------------------------------------------------------------
+  /healthcheck:
+    get:
+      tags:
+        - Public
+      summary: Health check
+      description: Verifica se a aplicação está saudável (readiness probe).
+      operationId: healthCheck
+      responses:
+        '200':
+          description: Aplicação saudável.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthCheck'
+        '503':
+          description: Aplicação indisponível.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # ------------------------------------------------------------------
+  # Auth — POST /sessions (Devise + devise-jwt)
+  # ------------------------------------------------------------------
+  /session:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: Autentica um usuário e retorna token JWT.
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: usuario@carva.com
+                password:
+                  type: string
+                  format: password
+                  example: Senha123!
+              required: [email, password]
+      responses:
+        '200':
+          description: Login realizado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                        example: "eyJhbGciOiJIUzI1NiJ9..."
+                      expiry:
+                        type: string
+                        format: date-time
+                        example: "2025-06-10T14:00:00Z"
+                      user:
+                        $ref: '#/components/schemas/User'
+        '401':
+          description: Credenciais inválidas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /session/me:
+    get:
+      tags:
+        - Auth
+      summary: Usuário atual
+      description: Retorna os dados do usuário autenticado.
+      operationId: getCurrentUser
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Dados do usuário atual.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Não autenticado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # ------------------------------------------------------------------
+  # Serviços — GET /storefront/services (público)
+  # ------------------------------------------------------------------
+  /storefront/services:
+    get:
+      tags:
+        - Public
+      summary: Listar serviços públicos
+      description: Lista todos os serviços ativos visíveis ao público.
+      operationId: listPublicServices
+      parameters:
+        - name: category
+          in: query
+          description: Filtrar por categoria (corte, barba, tratamento, etc.)
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: Número da página (paginação)
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          description: Itens por página
+          schema:
+            type: integer
+            default: 25
+      responses:
+        '200':
+          description: Lista de serviços.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Service'
+                  pagination:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      total_pages:
+                        type: integer
+                        example: 3
+                      total_count:
+                        type: integer
+                        example: 50
+
+  # ------------------------------------------------------------------
+  # Produtos — GET /storefront/products (público)
+  # ------------------------------------------------------------------
+  /storefront/products:
+    get:
+      tags:
+        - Public
+      summary: Listar produtos públicos
+      description: Lista todos os produtos à venda visíveis ao público.
+      operationId: listPublicProducts
+      parameters:
+        - name: category
+          in: query
+          description: Filtrar por categoria
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            default: 25
+      responses:
+        '200':
+          description: Lista de produtos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  pagination:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                        example: 1
+                      total_pages:
+                        type: integer
+                        example: 2
+                      total_count:
+                        type: integer
+                        example: 30
+
+  # ------------------------------------------------------------------
+  # Bookings — POST /storefront/bookings (público)
+  # ------------------------------------------------------------------
+  /storefront/bookings:
+    post:
+      tags:
+        - Public
+      summary: Criar agendamento
+      description: Realiza um novo agendamento de serviço.
+      operationId: createBooking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                service_id:
+                  type: integer
+                  example: 1
+                professional_id:
+                  type: integer
+                  example: 2
+                customer_name:
+                  type: string
+                  example: Maria Souza
+                customer_phone:
+                  type: string
+                  example: "(11) 99999-0000"
+                scheduled_at:
+                  type: string
+                  format: date-time
+                  example: "2025-06-15T10:00:00Z"
+              required: [service_id, customer_name, scheduled_at]
+      responses:
+        '201':
+          description: Agendamento criado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Booking'
+        '422':
+          description: Validação falhou.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+
+  # ------------------------------------------------------------------
+  # Bookings — GET /storefront/bookings (autenticado)
+  # ------------------------------------------------------------------
+  /storefront/bookings:
+    get:
+      tags:
+        - Bookings
+      summary: Listar agendamentos
+      description: Lista os agendamentos do tenant autenticado.
+      operationId: listBookings
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          description: Filtrar por status
+          schema:
+            type: string
+            enum: [scheduled, confirmed, completed, cancelled]
+        - name: date_from
+          in: query
+          description: Data inicial
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          description: Data final
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Lista de agendamentos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Booking'
+
+  # ------------------------------------------------------------------
+  # Slots disponíveis — GET /storefront/available_slots
+  # ------------------------------------------------------------------
+  /storefront/available_slots:
+    get:
+      tags:
+        - Public
+      summary: Slots disponíveis
+      description: Retorna os horários livres para um profissional em uma data.
+      operationId: listAvailableSlots
+      parameters:
+        - name: professional_id
+          in: query
+          required: true
+          description: ID do profissional
+          schema:
+            type: integer
+            example: 2
+        - name: date
+          in: query
+          required: true
+          description: Data no formato YYYY-MM-DD
+          schema:
+            type: string
+            format: date
+            example: "2025-06-15"
+      responses:
+        '200':
+          description: Lista de slots disponíveis.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Slot'
+
+  # ------------------------------------------------------------------
+  # Serviços — GET /inventory/services (autenticado)
+  # ------------------------------------------------------------------
+  /inventory/services:
+    get:
+      tags:
+        - Services
+      summary: Listar serviços (admin)
+      description: Lista todos os serviços do tenant, incluindo inativos.
+      operationId: listServices
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Lista de serviços.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+
+  # ------------------------------------------------------------------
+  # Serviços — POST /inventory/services (autenticado)
+  # ------------------------------------------------------------------
+  /inventory/services:
+    post:
+      tags:
+        - Services
+      summary: Criar serviço
+      description: Cria um novo serviço no inventário.
+      operationId: createService
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Corte VIP
+                description:
+                  type: string
+                  example: Corte premium com hidratação.
+                price:
+                  type: number
+                  format: float
+                  example: 80.00
+                duration_minutes:
+                  type: integer
+                  example: 45
+                category:
+                  type: string
+                  example: corte
+              required: [name, price]
+      responses:
+        '201':
+          description: Serviço criado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+
+  # ------------------------------------------------------------------
+  # Produtos — GET /inventory/products (autenticado)
+  # ------------------------------------------------------------------
+  /inventory/products:
+    get:
+      tags:
+        - Products
+      summary: Listar produtos (admin)
+      description: Lista todos os produtos do inventário.
+      operationId: listProducts
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: Lista de produtos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+  # ------------------------------------------------------------------
+  # Produtos — POST /inventory/products (autenticado)
+  # ------------------------------------------------------------------
+  /inventory/products:
+    post:
+      tags:
+        - Products
+      summary: Criar produto
+      description: Cria um novo produto no inventário.
+      operationId: createProduct
+      security:
+        - BearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Pomada Matte
+                description:
+                  type: string
+                  example: Pomada para modelagem.
+                price:
+                  type: number
+                  format: float
+                  example: 45.00
+                sku:
+                  type: string
+                  example: PROD-002
+                stock_quantity:
+                  type: integer
+                  example: 50
+              required: [name, price, sku]
+      responses:
+        '201':
+          description: Produto criado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'

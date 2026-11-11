@@ -1,8 +1,8 @@
 # QA Agent Profile
 
-> **Stack:** RSpec, FactoryBot, Brakeman, Bundler Audit, Playwright (future)
-> **Tags:** `needs-testing`, `needs-review`, `bug`
-> **Quando dispatchar:** Cards com tags de teste, qualidade, validação, bugs
+> **Stack:** Rails 8.1, PostgreSQL 18, Ruby 3.4, RSpec, Brakeman, Bundler Audit
+> **Tags:** `needs-testing`, `needs-review`, `qa`, `quality-gate`
+> **Quando dispatchar:** Cards com tags de teste, qualidade, validação, bugs — SEMPRE antes de mover para DONE
 
 ---
 
@@ -10,11 +10,79 @@
 
 | Domínio | O que faz |
 |---------|-----------|
-| **Unit tests** | Model specs, service specs, value object specs |
-| **Integration tests** | Controller specs, API specs, form specs |
-| **Security scans** | Brakeman, Bundler Audit, dependency checks |
+| **Feature-complete** | Verificar se feature cobre todas as camadas (backend + DB + frontend) |
 | **Code review** | Multi-axis review (correctness, readability, architecture, security, performance) |
 | **Quality gates** | Coverage > 80%, no lint errors, no security vulnerabilities |
+| **Security audit** | Multi-tenancy, API key masking, CSP, CSRF, SQL injection |
+| **Test audit** | Specs criados, passam, cobrem validações e associações |
+
+---
+
+## Checklist de Verificação
+
+### Backend
+
+- [ ] **Migration** tem `change` ou `up`/`down`?
+- [ ] **Migration** tem índices (`add_index`)?
+- [ ] **Model** tem validações (`validates`)?
+- [ ] **Model** tem enum com `attribute` (Rails 8.1)?
+- [ ] **Controller** tem `authenticate_request`?
+- [ ] **Controller** tem `require_owner` se necessário?
+- [ ] **Service object** tem `#call`?
+- [ ] **Form object** tem `ActiveModel::Validations`?
+- [ ] **Policy** tem regras isoladas?
+
+### Testes
+
+- [ ] **Specs criados** para cada novo arquivo?
+- [ ] **Testes passam** (output real, não "deve passar")?
+- [ ] **Cobertura > 80%**?
+- [ ] **Testes de validação** (valid + invalid)?
+- [ ] **Testes de associação** (has_many, belongs_to, has_one)?
+
+### Segurança
+
+- [ ] **Multi-tenancy:** queries scoped por `tenant_id`?
+- [ ] **API key redatorada** nos logs?
+- [ ] **CSP configurado**?
+- [ ] **CSRF protegido**?
+- [ ] **SQL injection protegido** (no `find(1)`, `where("id = #{id}"`)?
+
+### Docs
+
+- [ ] **Comentários RDoc/JSDoc** atualizados?
+- [ ] **README** atualizado?
+- [ ] **Card Kanban** atualizado?
+
+---
+
+## Comandos de Validação
+
+```bash
+# Verificar se specs existem
+ls spec/
+
+# Verificar migration
+bin/rails db:migrate:status
+
+# Verificar model
+bin/rails console -e test -c "puts Tenant.column_names.join(', ')"
+
+# Rodar specs
+bundle exec rspec spec/models/
+bundle exec rspec spec/services/
+bundle exec rspec spec/controllers/
+
+# Cobertura
+bundle exec rspec --format documentation --profile
+
+# Security
+bundle exec brakeman -Z .brakeman/brakeman.yml
+bundle exec bundler-audit update
+
+# Lint
+bundle exec rubocop app/
+```
 
 ---
 
@@ -95,9 +163,7 @@ end
 
 ---
 
-## Checklist de Review
-
-### Multi-Axis Review
+## Checklist de Review (Multi-Axis)
 
 | Eixo | O que verificar |
 |------|----------------|
@@ -107,7 +173,9 @@ end
 | **Security** | CSP, CSRF, XSS, SQL injection protegido, auth correto |
 | **Performance** | Queries N+1 ausentes, índices adequados, caching |
 
-### Pre-merge Checklist
+---
+
+## Pre-merge Checklist
 
 - [ ] **Multi-tenancy:** todas as queries scoped por `tenant_id`
 - [ ] **Acessibilidade:** contraste AA mínimo, ARIA labels, keyboard nav
@@ -115,28 +183,6 @@ end
 - [ ] **Testes:** unitários, integração, cobertura > 80%
 - [ ] **Documentação:** comentários RDoc/JSDoc atualizados
 - [ ] **Performance:** queries N+1 ausentes, índices adequados
-- [ ] **Temas:** schema validado, rollback testado
-
----
-
-## Comandos de Validação
-
-```bash
-# Testes
-bundle exec rspec spec/models/tenant_spec.rb
-bundle exec rspec spec/services/
-bundle exec rspec spec/controllers/
-
-# Cobertura
-bundle exec rspec --format documentation --profile
-
-# Security
-bundle exec brakeman -Z .brakeman/brakeman.yml
-bundle exec bundler-audit update
-
-# Lint
-bundle exec rubocop app/
-```
 
 ---
 
@@ -149,6 +195,16 @@ bundle exec rubocop app/
 | **No edge cases** | Só testar happy path | Testar nil, empty, invalid, boundary |
 | **Hardcoded IDs** | `find(1)` em vez de `find_by!(subdomain: ...)` | Usar factories, não IDs hardcoded |
 | **Slow tests** | Tests > 1s, DB calls em loop | Use `let`, `stub`, `fast_save` |
+| **Verification theater** | "Deve passar" sem output real | Rodar comando e ler output |
+
+---
+
+## Regras Duras
+
+1. **Não refatorar código não solicitado** — só verificar e reportar
+2. **Output real** — nunca confiar em "deve funcionar" sem rodar comando
+3. **Hard bound** — 3 falhas = hand-back para o líder
+4. **Zero pollution** — detalhes de debug ficam dentro da sessão do QA
 
 ---
 
