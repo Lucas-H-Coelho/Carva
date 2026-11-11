@@ -8,9 +8,13 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    token = request.headers['Authorization']&.delete_prefix('Bearer ')
-    token ||= request.headers['X-Carva-API-Key']
+    # 1. Check middleware-injected current_user (API Key auth)
+    @current_user = read_current_user_from_env
 
+    return if @current_user && @current_user.tenant&.status == 'active'
+
+    # 2. JWT auth (fallback)
+    token = request.headers['Authorization']&.delete_prefix('Bearer ')
     return render_json_error('Unauthorized', 401) unless token
 
     begin
@@ -24,7 +28,30 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user
+    @current_user ||= read_current_user_from_env
+  end
+
+  def read_current_user_from_env
+    return nil unless request.respond_to?(:env)
+    request.env['current_user']
+  end
+
+  def current_tenant
+    @current_tenant ||= current_user&.tenant
+  end
+
+  def require_owner
+    return render_json_error('Unauthorized', 401) unless current_user
+    return if current_user&.role == 'owner'
+
+    render_json_error('Forbidden', 403, detail: 'Owner access required')
+  end
+
+  def require_shift_lead_or_owner
+    return render_json_error('Unauthorized', 401) unless current_user
+    return if current_user&.role == 'owner' || current_user&.role == 'shift_lead'
+
+    render_json_error('Forbidden', 403, detail: 'Shift lead or owner access required')
   end
 
   def render_json_error(title, status, detail: nil, pointer: nil)

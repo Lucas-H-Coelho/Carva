@@ -4,6 +4,18 @@ Rails.application.routes.draw do
 
   # Swagger UI — API documentation
   mount Rswag::Ui::Engine => '/api/docs'
+
+  # ============================================================
+  # Public API (no auth required)
+  # ============================================================
+  namespace :api do
+    namespace :v1 do
+      get 'public/health', to: 'public#health'
+      get 'public/services', to: 'public#services'
+      get 'public/available_slots', to: 'public#available_slots'
+    end
+  end
+
   # ============================================================
   # API V1 — Engine routes
   # ============================================================
@@ -16,6 +28,10 @@ Rails.application.routes.draw do
       resource :session, only: %i[create destroy], path: 'session' do
         get 'me', to: 'sessions#me', as: 'me'
       end
+
+      # API Key management (owner-only)
+      get 'api_key', to: 'api_keys#show', as: 'api_key_show'
+      delete 'api_key', to: 'api_keys#regenerate', as: 'api_key_regenerate'
 
       # Theme engine (Liquid parser, theme CRUD, schema)
       mount Carva::ThemeEngine::Engine => '/theme_engine'

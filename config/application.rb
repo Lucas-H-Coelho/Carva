@@ -45,6 +45,10 @@ module Carva
     require_relative '../lib/carva/multi_tenancy/tenant_middleware'
     config.middleware.insert_before 0, Carva::MultiTenancy::TenantMiddleware
 
+    # API Key auth middleware — injects current_user/current_tenant from X-Carva-API-Key
+    require_relative '../app/middlewares/api_key_auth'
+    config.middleware.insert_after 0, ApiKeyAuth
+
     # ============================================================
     # ENGINES
     # ============================================================
@@ -59,11 +63,14 @@ module Carva
     config.autoload_paths << engines_path.join('carva_storefront', 'app', 'models')
     config.eager_load_paths << engines_path.join('carva_storefront', 'app', 'models')
 
+    # Middleware autoload path
+    config.autoload_paths << Rails.root.join('app', 'middlewares')
+
     # CORS middleware
     config.middleware.insert_before(0, Rack::Cors) do
       allow do
         origins '*'
-        resource '/api/v1/*', headers: %w[Content-Type Authorization]
+        resource '/api/v1/*', headers: %w[Content-Type Authorization X-Carva-API-Key]
       end
     end
 
