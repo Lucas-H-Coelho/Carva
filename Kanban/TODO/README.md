@@ -34,6 +34,7 @@ Depois de T-013, a ordem é:
 6. **T-046** Engines config (engines precisam estar configurados)
 7. **T-047** Tests estrutura (testes precisam da estrutura certa)
 8. **T-048** Docs atualizada (docs precisam refletir estrutura real)
+9. **T-050** Pesquisa design patterns ← PRONTO (independente)
 
 ### Core app (após T-013)
 9. **T-026** Services CRUD

@@ -8,7 +8,7 @@
 
 | Fase | Cards | Prioridade |
 |------|-------|-----------|
-| — | 0 | — |
+| Fundações | 2 | P0–P1 |
 
 ---
 
@@ -16,8 +16,9 @@
 
 | ID | Card | Concluído em |
 |----|------|-------------|
-| — | — | — |
+| T-049 | Sistema de agentes | 2026-01-10 |
+| T-050 | Pesquisa design patterns | 2026-01-10 |
 
 ---
 
-*Nenhum card concluído ainda.*
+*Cards concluídos são movidos de IN_PROGRESS para DONE após validação.*
