@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_01_01_000005) do
+ActiveRecord::Schema[8.1].define(version: 2025_01_01_000006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -68,8 +68,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_01_01_000005) do
     t.text "settings", default: "{}", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "hosting_type", default: "self_hosted", null: false
+    t.string "plan", default: "lava", null: false
+    t.text "features", default: "{}", null: false
+    t.string "license_key"
+    t.datetime "license_expires_at"
+    t.string "stripe_customer_id"
+    t.string "subscription_id"
+    t.decimal "revenue_share_rate", precision: 5, scale: 2, default: "0.15", null: false
+    t.decimal "revenue_share_cap", precision: 10, scale: 2, default: "0.0", null: false
     t.index ["custom_domain"], name: "index_tenants_on_custom_domain", unique: true, where: "(custom_domain IS NOT NULL)"
+    t.index ["hosting_type"], name: "index_tenants_on_hosting_type"
+    t.index ["plan"], name: "index_tenants_on_plan"
+    t.index ["stripe_customer_id"], name: "index_tenants_on_stripe_customer_id", where: "(stripe_customer_id IS NOT NULL)"
     t.index ["subdomain"], name: "index_tenants_on_subdomain", unique: true
+    t.index ["subscription_id"], name: "index_tenants_on_subscription_id", where: "(subscription_id IS NOT NULL)"
   end
 
   create_table "users", force: :cascade do |t|

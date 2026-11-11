@@ -12,6 +12,12 @@
 
 ---
 
+## Cards em Progresso
+
+| ID | Card | Progresso |
+|----|------|-----------|
+| T-013 | Tenant schema: hosting_type, plan, features | Migration + model |
+
 ## Regras
 
 1. **Máximo 1 card por vez** — não comece outro até finalizar
@@ -21,4 +27,4 @@
 
 ---
 
-*Nenhum card em progresso.*
+*T-013 em andamento.*
