@@ -107,7 +107,7 @@ group :development, :test do
   gem 'bundler-audit', require: false
   gem 'brakeman', require: false
   gem 'rubocop-rails-omakase', require: false
-  gem 'rspec-rails', '~> 6.0'
+  gem 'rspec-rails', '~> 8.1'
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 3.2'
   gem 'simplecov', '~> 1.3', require: false
