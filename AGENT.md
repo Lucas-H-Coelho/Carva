@@ -263,6 +263,37 @@ Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends
 
 ---
 
+## 2.7 Agents — Sistema de Agentes
+
+O projeto usa um sistema de agentes com divisão entre líder e subagentes, baseado no Fable Method.
+
+| Arquivo | Responsabilidade |
+|---------|-----------------|
+| `agents/AGENTS.md` | Entrada principal — visão geral, divisão de papéis, integração com FABLE.md |
+| `agents/dispatch.md` | Guia detalhado de como dispatchar, validar, e aprovar subagentes |
+| `agents/profiles/backend.md` | Perfil do agente backend (Rails, APIs, DB, services) |
+| `agents/profiles/frontend.md` | Perfil do agente frontend (React, Vite, Liquid, storefronts) |
+| `agents/profiles/infra.md` | Perfil do agente infra (Docker, CI/CD, deploy, infra) |
+| `agents/profiles/qa.md` | Perfil do agente QA (testes, qualidade, validação) |
+
+### Regras de Dispatch
+
+1. **Máximo 1 subagente por vez** — nunca paralelizar subagentes
+2. **Líder decide, subagente executa** — subagentes não dispatcham outros, não criam cards Kanban, não commitam
+3. **Escopo declarado** — cada subagent recebe: arquivos, paths, comandos de validação, regras duras
+4. **Verificação real** — líder lê os arquivos criados e roda os comandos (não confia no resumo)
+5. **Zero pollution** — detalhes de debug ficam dentro da sessão do subagente
+
+### Integração com FABLE.md
+
+| Aspecto | Onde definido |
+|---------|---------------|
+| Loop completo (0-6) | `FABLE.md` — líder aplica todos os passos |
+| Act + Verify (4-5) | `FABLE.md` — subagentes aplicam só estes |
+| Anti-hallucination guards | `FABLE.md` — ambos seguem |
+| Dispatch protocol | `agents/dispatch.md` — como o líder opera |
+| Agent profiles | `agents/profiles/*` — stack e responsabilidades |
+
 ---
 
 ## 3. Regras de Interação com o Agente
