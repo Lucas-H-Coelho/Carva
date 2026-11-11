@@ -124,8 +124,9 @@ T-043 ──→ T-044 Frontend ──→ T-045 Themes
 
 1. **BACKLOG → TODO:** Só move quando o card está detalhado (objetivo, decisões, passo a passo, checklist, riscos)
 2. **TODO → IN_PROGRESS:** Só move quando começou a implementar
-3. **IN_PROGRESS → DONE:** Só move quando concluído e validado
+3. **IN_PROGRESS → DONE:** Só move quando feature completa (backend + DB + frontend + testes)
 4. **Respeitar dependências:** Nunca mover um card para TODO se seus dependentes não estão em DONE
+5. **Feature-complete:** Cada card DEVE cobrir todas as camadas antes de DONE
 
 ---
 

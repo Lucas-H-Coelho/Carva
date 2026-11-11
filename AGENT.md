@@ -21,10 +21,64 @@ Permitir que donos de lava-carro configurem uma presença digital completa (loja
 ### 1.2 Princípios de Design
 
 1. **Merchants-first** — qualquer decisão deve priorizar a experiência do lojista não-técnico.
-2. **API-first** — toda funcionalidade expõe uma API REST/GraphQL antes de qualquer UI.
-3. **Zero dependências externas de UI** — nenhum framework CSS de terceiros; tudo é construído internamente.
-4. **Segurança e acessibilidade em primeiro plano** — WCAG 2.1 AA mínimo, CSP rigoroso, isolamento multi-tenant.
-5. **Temas versionados e rollbackáveis** — cada tema é uma entidade versionada com histórico e deploy seguro.
+2. **Feature-complete** — cada feature é desenvolvida end-to-end (backend + DB + frontend) antes de mover para DONE.
+3. **API-first** — toda funcionalidade expõe uma API REST/GraphQL antes de qualquer UI.
+4. **Zero dependências externas de UI** — nenhum framework CSS de terceiros; tudo é construído internamente.
+5. **Segurança e acessibilidade em primeiro plano** — WCAG 2.1 AA mínimo, CSP rigoroso, isolamento multi-tenant.
+6. **Temas versionados e rollbackáveis** — cada tema é uma entidade versionada com histórico e deploy seguro.
+
+---
+
+### 1.3 Desenvolvimento por Feature Completa
+
+O projeto segue **desenvolvimento modular por feature completa** — cada feature é desenvolvida end-to-end, incluindo:
+
+| Camada | O que inclui |
+|--------|-------------|
+| **Database** | Migration, model, validações, índices |
+| **Backend** | Controller, service, form, policy, testes |
+| **Frontend** | Componentes React, state management, API calls, UI |
+| **Testes** | Unitários, integração, cobertura > 80% |
+| **Docs** | Comentários, README atualizado |
+
+#### Regras de Feature-Complete
+
+1. **Nunca entregar metade** — se o card diz "implementar bookings", entrega migration + model + controller + API + React components + testes.
+2. **Um card = uma feature completa** — não divide em "backend pronto" e "frontend depois".
+3. **Validação end-to-end** — só move para DONE quando o usuário pode usar a feature do início ao fim.
+4. **Commit atomico** — cada card = um commit, contendo todas as camadas da feature.
+
+#### Exemplo
+
+```
+Card: T-026 Services CRUD
+
+FEITO (DONE):
+  ✅ Migration: services table
+  ✅ Model: Carva::Inventory::Service
+  ✅ Controller: ServicesController (CRUD)
+  ✅ Service: CreateService, UpdateService, DeleteService
+  ✅ API: /api/v1/services (index, show, create, update, destroy)
+  ✅ React: ServicesList, ServiceForm, ServiceDetail
+  ✅ Testes: 15 specs, cobertura 85%
+  ✅ Docs: README atualizado
+
+NÃO É DONE:
+  ❌ Só migration + model + controller (metade backend)
+  ❌ Só API sem React components (metade frontend)
+  ❌ Só React sem testes (metade qualidade)
+```
+
+#### Impacto nos Agentes
+
+| Agente | Responsabilidade |
+|--------|-----------------|
+| **Líder** | Define o escopo completo da feature, dispatcha subagentes, valida end-to-end |
+| **Backend** | Implementa DB + API + services + testes |
+| **Frontend** | Implementa React components + state + API calls + UI |
+| **QA** | Valida feature completa, não apenas uma camada |
+
+---
 
 ---
 
@@ -215,7 +269,7 @@ O projeto usa tags para classificar cards por tipo, domínio e status. **Todo ca
 
 | Tag | Uso |
 |-----|-----|
-| `feature` | Nova funcionalidade |
+| `feature` | Nova funcionalidade end-to-end |
 | `bug` | Correção de erro |
 | `chore` | Configuração, dependências, CI/CD |
 | `refactor` | Melhorias sem mudar comportamento |
@@ -234,14 +288,14 @@ O projeto usa tags para classificar cards por tipo, domínio e status. **Todo ca
 | `carva_marketing` | Campanhas, notificações |
 | `carva_dashboard` | Painel admin (React) |
 
-#### Por prioridade técnica
+#### Por camada da feature
 
 | Tag | Uso |
 |-----|-----|
-| `blocking` | Bloqueia outras tarefas |
-| `tech-debt` | Dívida técnica |
-| `security` | Segurança |
-| `performance` | Otimização |
+| `full-stack` | Feature completa (backend + frontend + DB) |
+| `backend` | Apenas camada backend (raro, só para infra) |
+| `frontend` | Apenas camada frontend (raro, só para UI polish) |
+| `database` | Apenas camada DB (raro, só para schema changes) |
 
 #### Por status de review
 

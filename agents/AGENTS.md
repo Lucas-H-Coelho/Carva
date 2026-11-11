@@ -15,6 +15,7 @@
 │  Classifica → Define done → Evidência → Decide          │
 │  → Dispatch subagent → Verifica → Reporta               │
 │                                                         │
+│  Regra: feature-complete (backend + frontend + DB)      │
 │  Regra: máximo 1 subagent por vez                       │
 └────────────────────────┬────────────────────────────────┘
                          │ dispatch (1 por vez)
@@ -30,10 +31,11 @@
 
 ### Princípios
 
-1. **Líder decide, subagente executa** — subagentes não dispatcham outros, não criam cards Kanban, não commitam
-2. **Máximo 1 subagente por vez** — nunca paralelizar subagentes; esperar um terminar antes de dispatchar o próximo
-3. **Fable Method é o loop** — líder aplica o loop completo; subagentes aplicam só act + verify
-4. **Zero pollution** — detalhes de debug ficam dentro da sessão do subagente; o líder só lê o resultado
+1. **Feature-complete** — cada feature é desenvolvida end-to-end (backend + DB + frontend) antes de mover para DONE
+2. **Líder decide, subagente executa** — subagentes não dispatcham outros, não criam cards Kanban, não commitam
+3. **Máximo 1 subagente por vez** — nunca paralelizar subagentes; esperar um terminar antes de dispatchar o próximo
+4. **Fable Method é o loop** — líder aplica o loop completo; subagentes aplicam só act + verify
+5. **Zero pollution** — detalhes de debug ficam dentro da sessão do subagente; o líder só lê o resultado
 
 ---
 

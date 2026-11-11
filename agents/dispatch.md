@@ -65,6 +65,21 @@ O prompt do subagent DEVE conter:
 | `chore`, `security`, `performance` (infra) | Infra | `agents/profiles/infra.md` |
 | `needs-testing`, `needs-review` | QA | `agents/profiles/qa.md` |
 
+### 4. Garantir Feature-Complete
+
+Cada card DEVE cobrir todas as camadas antes de DONE:
+
+```
+CHECKLIST FEATURE-COMPLETE:
+  - [ ] Database: migration, model, validações, índices
+  - [ ] Backend: controller, service, form, policy, testes
+  - [ ] Frontend: React components, state, API calls, UI
+  - [ ] Testes: unitários, integração, cobertura > 80%
+  - [ ] Docs: comentários, README atualizado
+```
+
+Se o card só cobre uma camada (ex: só backend), o líder DEVE dispatchar outro subagent para completar as outras camadas antes de mover para DONE.
+
 ---
 
 ## Ao Receber Output do Subagent
@@ -103,6 +118,7 @@ VERIFICATION CHECK:
 
 | Anti-pattern | Sintoma | Previne por |
 |--------------|---------|-------------|
+| **Metade feature** | Entregar só backend ou só frontend | Regra: feature-complete (todas as camadas) |
 | **Scope creep** | Subagente refatora código não solicitado | Leader define escopo no card; subagente segue |
 | **Paralelismo** | Dispatchar 2+ subagentes ao mesmo tempo | Regra: máximo 1 subagente por vez |
 | **Confiança cega** | Achar que "deve funcionar" sem verificar | Guard 3 (Verification Theater) |
@@ -113,7 +129,48 @@ VERIFICATION CHECK:
 
 ## Exemplo Real
 
-### Card: T-009 User + Devise auth
+### Card: T-026 Services CRUD (feature-complete)
+
+```
+LÍDER:
+  1. Criou card em TODO/ com frontmatter
+  2. Moveu para IN_PROGRESS/
+  3. Dispatch subagent backend com:
+     - Contexto: Rails 8.1, PostgreSQL 18
+     - Arquivos: db/migrate/, app/models/, app/services/, app/controllers/
+     - Comandos: bin/rails db:migrate, bundle exec rspec
+     - Regras: namespace Carva::Inventory::, naming conventions
+
+SUBAGENTE BACKEND:
+  1. Implementou migration, model, controller, services
+  2. Rodou testes → passaram
+  3. Reportou sucesso
+
+LÍDER:
+  1. Li os arquivos criados
+  2. Rodé os testes → passaram
+  3. Movi card para IN_PROGRESS/
+
+LÍDER:
+  1. Dispatch subagent frontend com:
+     - Contexto: React 19, Vite 8, Zustand
+     - Arquivos: app/frontend/src/components/Services*
+     - Comandos: bin/vite build, bundle exec rspec
+     - Regras: Zod schemas, React Hook Form, WCAG 2.1 AA
+
+SUBAGENTE FRONTEND:
+  1. Implementou ServicesList, ServiceForm, ServiceDetail
+  2. Rodou build → passou
+  3. Reportou sucesso
+
+LÍDER:
+  1. Li os arquivos criados
+  2. Rodé bin/vite build → passou
+  3. Verifiquei UI com design-taste-frontend
+  4. Movi card para DONE/, atualizei README
+```
+
+### Card: T-009 User + Devise auth (incompleto — NÃO segue feature-complete)
 
 ```
 LÍDER:
@@ -137,6 +194,8 @@ LÍDER:
   4. Rodé testes → passaram
   5. Movi card para DONE/, atualizei README
 ```
+
+⚠️ **Este card NÃO segue feature-complete** — entregou só backend, sem React components.
 
 ---
 

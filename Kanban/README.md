@@ -160,6 +160,7 @@ Cada card usa YAML frontmatter com `id`, `phase`, `priority`, `status`, `depends
 - **VALIDAÇÃO:** Só mover para `DONE/` quando TODOS os itens do checklist estiverem marcados
 - **BACKLOG ATIVO:** Se durante o trabalho surgir algo não definido, criar card em `BACKLOG/` antes de prosseguir
 - **TAGS OBRIGATÓRIAS:** Todo card novo DEVE ter pelo menos uma tag de tipo (`feature`, `bug`, `chore`, `refactor`, `docs`) e uma tag de engine/domínio
+- **FEATURE-COMPLETE:** Cada card DEVE cobrir todas as camadas (backend + DB + frontend + testes) antes de DONE
 
 ---
 

@@ -80,7 +80,7 @@ Depois de T-013, a ordem é:
 ## Regras
 
 1. **Só um card por vez** em `IN_PROGRESS`
-2. **Complete o card** antes de mover para `DONE`
+2. **Feature-complete** — complete todas as camadas (backend + DB + frontend) antes de mover para `DONE`
 3. **Dependências** devem estar em `DONE` antes de começar
 4. **Crie o card** em `TODO/` antes de começar a trabalhar
 
