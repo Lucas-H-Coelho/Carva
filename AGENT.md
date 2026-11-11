@@ -350,6 +350,109 @@ O projeto usa um sistema de agentes com divisão entre líder e subagentes, base
 
 ---
 
+### 2.7.1 Regras de Prompt para Subagentes
+
+O líder DEVE criar prompts seguindo o template abaixo. Cada subagent DEVE receber TODAS as seções:
+
+```
+## Contexto
+- Stack: [versões exatas]
+- Engine: [engine relevante]
+- Card: [ID do card Kanban]
+- Fase: [Fase X]
+- Depende de: [cards DONE]
+
+## O que implementar
+- Passo 1: [descrição exata]
+- Passo 2: [descrição exata]
+- Passo 3: [descrição exata]
+- Passo 4: [descrição exata]
+
+## Arquivos a criar/modificar
+- [lista completa de caminhos]
+
+## Comandos de validação
+- [comando 1]
+- [comando 2]
+
+## Regras duras
+- [regra 1]
+- [regra 2]
+- [regra 3]
+
+## Regras de leitura obrigatória
+- LEIA `agents/profiles/<perfil>.md` ANTES de começar
+- LEIA `AGENT.md` para entender o contexto do projeto
+- LEIA `agents/dispatch.md` para entender o protocolo de dispatch
+- NÃO assuma que arquivos existem — verifique com `ls` ou `cat`
+- NÃO comite código — só o líder comita
+- NÃO dispatcha outros subagentes — você é folha
+```
+
+#### Regras de Prompt
+
+| Regra | Por quê |
+|-------|---------|
+| **Sempre listar arquivos** | Evita que subagentes inventem arquivos que não existem |
+| **Sempre listar comandos** | Garante que subagentes validem antes de reportar |
+| **Sempre listar regras duras** | Previne scope creep e refatoração não solicitada |
+| **Exigir leitura de profiles** | Garante que subagentes conheçam suas próprias responsabilidades |
+| **Proibir commit** | Só o líder comita — subagentes são folha |
+| **Proibir sub-dispatch** | Subagentes não dispatcham outros — cadeia de comando |
+
+#### Regras para Subagentes (Obrigatório)
+
+Cada subagent DEVE seguir estas regras em TODA interação:
+
+**1. Leitura Obrigatória**
+
+Antes de qualquer ação, o subagent DEVE:
+
+```
+LEITURA OBRIGATÓRIA:
+  1. LEIA `agents/profiles/<perfil>.md` — suas responsabilidades
+  2. LEIA `AGENT.md` — contexto do projeto, stack, princípios
+  3. LEIA `agents/dispatch.md` — protocolo de dispatch
+  4. LEIA `Kanban/TODO/T-NNN-titulo.md` — card específico
+  5. LEIA `Kanban/BACKLOG/README.md` — ordem de implementação
+```
+
+**2. Regras de Execução**
+
+| Regra | O que fazer |
+|-------|-------------|
+| **Não comite** | Só o líder comita — subagentes entregam código |
+| **Não dispatcha** | Subagentes não dispatcham outros — você é folha |
+| **Não cria cards** | Só o líder cria/move cards Kanban |
+| **Verifica arquivos** | Use `ls` ou `cat` antes de criar/modificar |
+| **Rode testes** | `bundle exec rspec` antes de reportar sucesso |
+| **Reporte output** | Sempre mostre output real, nunca "deve funcionar" |
+| **Respeite escopo** | Só crie/modifique os arquivos listados no prompt |
+| **Não refatore** | Não mude código não solicitado — escopo é rígido |
+
+**3. Regras de Validação**
+
+```
+VALIDAÇÃO ANTES DE REPORTAR:
+  - [ ] Li os arquivos existentes? (não confiei em memória)
+  - [ ] Rodei os comandos de validação? (output real)
+  - [ ] Testes passaram? (não "deve passar")
+  - [ ] Cobertura de testes > 80%?
+  - [ ] Segui todas as regras duras do prompt?
+```
+
+**4. Regras de Falha**
+
+```
+SE FALHOU:
+  1. Reporte o erro COM output real
+  2. Não tente corrigir 3 vezes — hand-back para o líder
+  3. Não invente soluções — siga o prompt
+  4. Se não sabe: PARE e peça orientação
+```
+
+---
+
 ## 3. Regras de Interação com o Agente
 
 ### 3.1 Formato de Resposta
