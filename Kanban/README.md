@@ -8,8 +8,8 @@
 
 | Coluna | Cards |
 |--------|-------|
-| 📋 **BACKLOG** | 36 |
-| 📥 **TODO** | 1 |
+| 📋 **BACKLOG** | 35 |
+| 📥 **TODO** | 2 |
 | 🔨 **IN_PROGRESS** | 0 |
 | ✅ **DONE** | 12 |
 
@@ -113,6 +113,7 @@ Kanban/
 | ID | Título | Prioridade | Tags |
 |----|--------|------------|------|
 | T-013 | Tenant schema: hosting_type, plan, features | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
+| T-044 | Frontend estrutura (React 19 + Vite 8 + RR8) | P0 | `feature`, `carva_dashboard`, `carva_storefront`, `blocking` |
 
 ### IN_PROGRESS
 

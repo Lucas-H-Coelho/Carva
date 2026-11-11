@@ -10,20 +10,22 @@
 | Card | Fase | Prioridade | Depende de |
 |------|------|------------|------------|
 | T-013 | Fundações | P0 | T-012 ✅ |
+| T-044 | Fundações | P0 | T-043 ✅ (em backlog) |
 
 ---
 
-## Card Atual
+## Cards Atuais
 
 | ID | Card | Fase | Prioridade | Tags |
 |----|------|------|------------|------|
 | T-013 | Tenant schema: hosting_type, plan, features | 0 | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
+| T-044 | Frontend estrutura (React 19 + Vite 8 + RR8) | 0 | P0 | `feature`, `carva_dashboard`, `carva_storefront`, `blocking` |
 
 ---
 
 ## Próximo na Fila
 
-Depois de T-013, a ordem é:
+Depois de T-013 e T-044, a ordem é:
 
 ### Fundações (T-013 → T-048)
 1. **T-013** Tenant schema ← PRONTO (bloqueia tudo)
@@ -36,42 +38,43 @@ Depois de T-013, a ordem é:
 8. **T-048** Docs atualizada (docs precisam refletir estrutura real)
 9. **T-050** Pesquisa design patterns ← PRONTO (independente)
 
-### Core app (após T-013)
-9. **T-026** Services CRUD
-10. **T-024** Bookings CRUD
-11. **T-027** Products CRUD
-12. **T-025** Cancel/Reschedule
-13. **T-028** Cash Flow
-14. **T-036** Settings
+### Frontend estrutura (após T-043)
+10. **T-044** Frontend estrutura ← PRONTO (bloqueia TODO frontend)
 
-### Billing (após T-013)
-15. **T-014** Billing plans
-16. **T-015** Billing transactions
-17. **T-016** Billing::BaseService
-18. **T-017** SelfHostedService
-19. **T-018** CloudSaaSService
-20. **T-019** RevenueShareService
-21. **T-020** Feature flags
-22. **T-021** Seeds
-23. **T-022** Docs
-24. **T-039** Feature gates
+### Core app + Frontend (após T-013 + T-044)
+11. **T-026** Services CRUD + React
+12. **T-024** Bookings CRUD + React
+13. **T-027** Products CRUD + React
+14. **T-025** Cancel/Reschedule + React
+15. **T-028** Cash Flow + React
+16. **T-036** Settings + React
 
-### Avançado (após core + billing)
-25. **T-023** WhatsApp OTP
-26. **T-029** WhatsApp notifs
-27. **T-030** Loyalty
-28. **T-031** Reviews
-29. **T-032** Dashboard
-30. **T-033** Multi-tenant
-31. **T-034** Team distribution
-32. **T-035** Expenses
-33. **T-037** Before/after photos
-34. **T-038** Offline mode
-35. **T-005** ESLint/Vite (deferred)
+### Billing + Frontend (após T-013)
+17. **T-014** Billing plans + React
+18. **T-015** Billing transactions + React
+19. **T-016** Billing::BaseService
+20. **T-017** SelfHostedService
+21. **T-018** CloudSaaSService
+22. **T-019** RevenueShareService
+23. **T-020** Feature flags
+24. **T-021** Seeds
+25. **T-022** Docs
+26. **T-039** Feature gates
 
-### Frontend & Themes (após T-048)
-36. **T-044** Frontend estrutura (React 19 + Vite 8 + RR8)
-37. **T-045** Themes Liquid (temas Liquid + React hydration)
+### Avançado + Frontend (após core + billing)
+27. **T-023** WhatsApp OTP
+28. **T-029** WhatsApp notifs
+29. **T-030** Loyalty + React
+30. **T-031** Reviews + React
+31. **T-032** Dashboard + React
+32. **T-033** Multi-tenant Dashboard
+33. **T-034** Team distribution
+34. **T-035** Expenses
+35. **T-037** Before/after photos
+36. **T-038** Offline mode
+
+### Themes (após T-048)
+37. **T-045** Themes Liquid + Storefront React
 
 ---
 
@@ -81,6 +84,7 @@ Depois de T-013, a ordem é:
 2. **Feature-complete** — complete todas as camadas (backend + DB + frontend) antes de mover para `DONE`
 3. **Dependências** devem estar em `DONE` antes de começar
 4. **Crie o card** em `TODO/` antes de começar a trabalhar
+5. **Pareamento obrigatório** — cada feature card DEVE incluir backend + frontend juntos
 
 ---
 
