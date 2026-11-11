@@ -10,6 +10,7 @@
 | Card | Fase | Prioridade | Depende de |
 |------|------|------------|------------|
 | T-013 | Fundações | P0 | T-012 ✅ |
+| T-049 | Fundações | P0 | T-012 ✅ |
 
 ---
 
@@ -18,6 +19,7 @@
 | ID | Card | Fase | Prioridade | Tags |
 |----|------|------|------------|------|
 | T-013 | Tenant schema: hosting_type, plan, features | 0 | P0 | `feature`, `carva_core`, `carva_billing`, `blocking` |
+| T-049 | Sistema de agentes | 0 | P0 | `feature`, `carva_core`, `docs` |
 
 ---
 
@@ -34,6 +36,7 @@ Depois de T-013, a ordem é:
 6. **T-046** Engines config (engines precisam estar configurados)
 7. **T-047** Tests estrutura (testes precisam da estrutura certa)
 8. **T-048** Docs atualizada (docs precisam refletir estrutura real)
+9. **T-049** Sistema de agentes ← PRONTO (independente)
 
 ### Core app (após T-013)
 9. **T-026** Services CRUD
